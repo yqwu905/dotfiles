@@ -80,10 +80,7 @@ return require('packer').startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     config = require('plugins.indent-blankline'),
   }
-  use {
-    "liuchengxu/vista.vim",
-    config = require('plugins.vista')
-  }
+  use "liuchengxu/vista.vim"
   use {
     "nvim-lualine/lualine.nvim",
     config = require('plugins.lualine'),

@@ -180,18 +180,6 @@ return function()
     color = { fg = '#ffffff', gui = 'bold' },
   }
 
-  ins_left {
-    function()
-      if vim.b.vista_nearest_method_or_function ~= nil then
-        return vim.b.vista_nearest_method_or_function
-      else
-        return ""
-      end
-    end,
-    icon = 'ƒ:',
-    color = { fg = colors.func, gui = 'bold' },
-  }
-
   -- Add components to right sections
   ins_right {
     'o:encoding', -- option component same as &encoding in viml
