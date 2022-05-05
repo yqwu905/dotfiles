@@ -1,0 +1,502 @@
+priority -50
+
+extends texmath
+
+global !p
+def create_table(snip):
+	rows = snip.buffer[snip.line].split('x')[0]
+	cols = snip.buffer[snip.line].split('x')[1]
+
+	int_val = lambda string: int(''.join(s for s in string if s.isdigit()))
+
+	rows = int_val(rows)
+	cols = int_val(cols)
+
+	offset = cols + 1
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+
+	snip.buffer[snip.line] = ''
+
+	final_str = old_spacing + "\\begin{tabular}{|" + "|".join(['$' + str(i + 1) for i in range(cols)]) + "|}\n"
+
+	for i in range(rows):
+		final_str += old_spacing + '\t'
+		final_str += " & ".join(['$' + str(i * cols + j + offset) for j in range(cols)])
+
+		final_str += " \\\\\\\n"
+
+	final_str += old_spacing + "\\end{tabular}\n$0"
+
+	snip.expand_anon(final_str)
+
+def add_row(snip):
+	row_len = int(''.join(s for s in snip.buffer[snip.line] if s.isdigit()))
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+
+	snip.buffer[snip.line] = ''
+
+	final_str = old_spacing
+	final_str += " & ".join(['$' + str(j + 1) for j in range(row_len)])
+	final_str += " \\\\\\"
+
+	snip.expand_anon(final_str)
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment():
+    return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
+    return x != '0' and x != '0'
+endglobal
+
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}$2
+	$0
+\end{$1}
+endsnippet
+
+snippet eq "Equation Environment" w
+\begin{equation}
+	\begin{aligned}
+		$0
+	\end{aligned}
+\end{equation}
+endsnippet
+
+context "math()"
+snippet \\{ "Big Bracket"
+\left\\{
+	$0
+\right.
+endsnippet
+
+snippet bf "Bold" wA
+{\bf $1}$0
+endsnippet
+
+context "math()"
+snippet rm "rm" wA
+{\rm $1}$0
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Math" wA
+$$
+$1
+$$ $0
+endsnippet
+
+context "math()"
+snippet dd "downscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet dg "dagger" iA
+^{\dagger}$0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+context "math()"
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet	
+
+context "math()"
+priority 10
+snippet "bar" "bar" riA
+\overline{$1}$0
+endsnippet
+
+context "math()"
+snippet "bra" "bra" riA
+\bra{$1}$0
+endsnippet
+
+context "math()"
+snippet "ket" "ket" riA
+\ket{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet "hbar" "hbar" riA
+\hbar
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])bar" "bar" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+priority 10
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+priority 10
+snippet "mcal" "mathcal" riA
+\mathcal{$1}$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])mcal" "mathcal" riA
+\mathcal{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+priority 10
+snippet "mbb" "mathbb" riA
+\mathbb{$1}$0
+endsnippet
+
+context "math()"
+snippet "lrr" "lr()" riA
+\left($1\right)$0
+endsnippet
+
+context "math()"
+snippet "lrs" "lr[]" riA
+\left[$1\right]$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])mbb" "mathbb" riA
+\mathbb{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "(\\?\w+)(,\.|\.,)" "vector postfix" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "sq" "sqrt" riA
+\sqrt{$1}$0
+endsnippet
+
+context "math()"
+snippet p "pi" w
+\pi
+endsnippet
+
+context "math()"
+snippet P "Pi" w
+\Pi
+endsnippet
+
+context "math()"
+snippet ph "phi" w
+\phi
+endsnippet
+
+context "math()"
+snippet Ph "Phi" w
+\Phi
+endsnippet
+
+context "math()"
+snippet e "epsilon" w
+\epsilon
+endsnippet
+
+context "math()"
+snippet E "Epsilon" w
+\Epsilon
+endsnippet
+
+context "math()"
+snippet a "alpha" w
+\alpha
+endsnippet
+
+context "math()"
+snippet A "Alpha" w
+\Alpha
+endsnippet
+
+context "math()"
+snippet b "beta" w
+\beta
+endsnippet
+
+context "math()"
+snippet B "Beta" w
+\Beta
+endsnippet
+
+context "math()"
+snippet c "chi" w
+\chi
+endsnippet
+
+context "math()"
+snippet C "Chi" w
+\Chi
+endsnippet
+
+context "math()"
+snippet d "delta" w
+\delta
+endsnippet
+
+context "math()"
+snippet D "Delta" w
+\Delta
+endsnippet
+
+context "math()"
+snippet et "eta" w
+\eta
+endsnippet
+
+context "math()"
+snippet Et "Eta" w
+\Eta
+endsnippet
+
+context "math()"
+snippet g "gamma" w
+\gamma
+endsnippet
+
+context "math()"
+snippet G "Gamma" w
+\Gamma
+endsnippet
+
+context "math()"
+snippet k "kappa" w
+\kappa
+endsnippet
+
+context "math()"
+snippet K "Kappa" w
+\Kappa
+endsnippet
+
+context "math()"
+snippet l "lambda" w
+\lambda
+endsnippet
+
+context "math()"
+snippet L "Lambda" w
+\Lambda
+endsnippet
+
+context "math()"
+snippet m "mu" w
+\mu
+endsnippet
+
+context "math()"
+snippet M "Mu" w
+\Mu
+endsnippet
+
+context "math()"
+snippet n "nu" w
+\nu
+endsnippet
+
+context "math()"
+snippet N "Nu" w
+\Nu
+endsnippet
+
+context "math()"
+snippet o "omega" w
+\omega
+endsnippet
+
+context "math()"
+snippet O "Omega" w
+\Omega
+endsnippet
+
+context "math()"
+snippet r "rho" w
+\rho
+endsnippet
+
+context "math()"
+snippet R "Rho" w
+\Rho
+endsnippet
+
+context "math()"
+snippet s "sigma" w
+\sigma
+endsnippet
+
+context "math()"
+snippet S "Sigma" w
+\Sigma
+endsnippet
+
+context "math()"
+snippet t "tau" w
+\tau
+endsnippet
+
+context "math()"
+snippet T "Tau" w
+\Tau
+endsnippet
+
+context "math()"
+snippet th "theta" w
+\theta
+endsnippet
+
+context "math()"
+snippet Th "Theta" w
+\Theta
+endsnippet
+
+context "math()"
+snippet x "xi" w
+\xi
+endsnippet
+
+context "math()"
+snippet X "Xi" w
+\Xi
+endsnippet
+
+context "math()"
+snippet z "zeta" w
+\zeta
+endsnippet
+
+context "math()"
+snippet Z "Zeta" w
+\Zeta
+endsnippet
+
+context "math()"
+snippet ps "psi" w
+\psi
+endsnippet
+
+context "math()"
+snippet Ps "Psi" w
+\Psi
+endsnippet		
+
+context "math()"
+snippet j "varphi" w
+\varphi
+endsnippet		
+
+snippet abs "abstract environment" b
+\begin{abstract}
+	$0
+\end{abstract}
+endsnippet
+
+snippet tab "tabular / array environment" b
+\begin{${1:t}${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${2:c}}
+$0${2/(?<=.)(c|l|r)|./(?1: & )/g}
+\end{$1${1/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+endsnippet
+
+pre_expand "create_table(snip)"
+snippet "gentbl(\d+)x(\d+)" "Generate table of *width* by *height*" r
+endsnippet
+
+pre_expand "add_row(snip)"
+snippet "tr(\d+)" "Add table row of dimension ..." r
+endsnippet
+
+snippet table "Table environment" b
+\begin{table}[${1:htpb}]
+	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+	\begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
+	$0${5/(?<=.)(c|l|r)|./(?1: & )/g}
+	\end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+\end{table}
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}[${2:htpb}]
+	\centering
+	\includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
+	\caption{${4/(\w+)\.\w+/\u$1/}$0}%
+	\label{fig:${4/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+
+snippet enum "Enumerate" b
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" b
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+
