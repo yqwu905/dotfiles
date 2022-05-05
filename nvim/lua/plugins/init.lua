@@ -119,6 +119,7 @@ return require('packer').startup(function(use)
   use "hrsh7th/cmp-cmdline"
   use "hrsh7th/cmp-nvim-lua"
   use "quangnguyen30192/cmp-nvim-ultisnips"
+  use "f3fora/cmp-spell"
 
   --Telescope
   use {
@@ -129,6 +130,7 @@ return require('packer').startup(function(use)
   use "nvim-telescope/telescope-rg.nvim"
   use "tom-anders/telescope-vim-bookmarks.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
+  use "lewis6991/spellsitter.nvim"
 
   -- Git
   use "sindrets/diffview.nvim"

@@ -52,6 +52,7 @@ return function()
           buffer = "[BUF]",
           ultisnips = "[Snip]",
           path = "[Path]",
+          spell = "[Spell]"
         })[entry.source.name]
         return vim_item
       end,
@@ -92,6 +93,7 @@ return function()
       { name = "nvim_lua" },
       { name = "path" },
       { name = "cmdline" },
+      { name = "spell" },
     },
     window = {
       completion = cmp.config.window.bordered(),

@@ -104,6 +104,8 @@ noremap <C-s> <cmd>w<CR>
 inoremap <C-s> <C-O><cmd>w<CR>
 vnoremap <C-s> <C-C><cmd>w<CR>
 
+inoremap <C-l> <c-g>u<Esc>[s1z=1`]a<c-g>u
+
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-h> <C-w>h
