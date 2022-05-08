@@ -10,6 +10,15 @@ local opts = {
   nowait = false,
 }
 
+local vopts = {
+  mode = "v",
+  prefix = "<leader>",
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
+
 wk.register({
   ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<cr>", "toggle comment" },
   ["1"] = { "<cmd>BufferLineGoToBuffer 1<cr>", "window 1" },
@@ -106,6 +115,10 @@ wk.register({
   },
   x = { "<cmd>lua close_buffer()<cr>", "close buf" },
 }, opts)
+
+wk.register({
+  ["/"] = { "<esc><cmd> :lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "toggle comment" },
+}, vopts)
 
 vim.cmd [[
 noremap <Tab> <cmd>BufferLineCycleNext<CR>
