@@ -49,6 +49,10 @@ return require('packer').startup(function(use)
     "numToStr/FTerm.nvim",
     config = require("plugins.FTerm")
   }
+  use {
+    "Shatur/neovim-session-manager",
+    config = require('plugins.session-manager')
+  }
 
   -- Colorscheme
   use {

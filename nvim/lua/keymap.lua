@@ -80,6 +80,14 @@ wk.register({
     n = { "<cmd>QNext<cr>", "next quickfix/loclist item" },
     p = { "<cmd>QPrev<cr>", "prev quickfix/loclist item" },
   },
+  s = {
+    name = "+session",
+    d = { "<cmd>SessionManager delete_session<CR>", "delete session" },
+    l = { "<cmd>SessionManager load_session<CR>", "load session" },
+    r = { "<cmd>SessionManager load_last_session<CR>", "load last session" },
+    s = { "<cmd>SessionManager save_current_session<CR>", "save current session" },
+    p = { "<cmd>SessionManager load_current_dir_session<CR>", "load current dir session" },
+  },
   u = {
     name = "+utils",
     r = { "<cmd>lua AsyncRunCode()<cr>", "run" },
