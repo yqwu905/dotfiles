@@ -144,4 +144,9 @@ omap T <Plug>(eft-T)
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
+
+noremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
+inoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
+vnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
+tnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 ]]
