@@ -26,7 +26,10 @@ wk.register({
     c = { "<cmd>Dox<cr>", "dox function" },
     f = { "<cmd>DoxAuthor<cr>", "dox file" },
   },
-  e = { "<cmd>NvimTreeFocus<cr>", "focus nvim_tree" },
+  e = {
+    name = "+enter",
+    c = { "<cmd>e $MYVIMRC | :cd %:p:h <CR>", "nvim config" }
+  },
   f = {
     name = "+find",
     a = { "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <cr>", "find all files" },
@@ -77,15 +80,15 @@ wk.register({
     n = { "<cmd>QNext<cr>", "next quickfix/loclist item" },
     p = { "<cmd>QPrev<cr>", "prev quickfix/loclist item" },
   },
-	u = {
-		name = "+utils",
-		r = { "<cmd>lua AsyncRunCode()<cr>", "run" },
-		c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
-		s = { "<cmd>Vista<cr>", "taglist" },
-		p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
-		w = { "<cmd>lua SyncVimWikiGitRepo()<cr>", "sync vimwiki" },
-		z = { "<cmd>TZAtaraxis<cr>", "zen mode" },
-	},
+  u = {
+    name = "+utils",
+    r = { "<cmd>lua AsyncRunCode()<cr>", "run" },
+    c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
+    s = { "<cmd>Vista<cr>", "taglist" },
+    p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
+    w = { "<cmd>lua SyncVimWikiGitRepo()<cr>", "sync vimwiki" },
+    z = { "<cmd>TZAtaraxis<cr>", "zen mode" },
+  },
   t = {
     name = "+term",
     w = { "<cmd>lua __fterm_wolfram()<cr>", "wolfram" },

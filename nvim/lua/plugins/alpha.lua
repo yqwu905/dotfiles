@@ -68,7 +68,7 @@ return function()
       button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
       button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
       button("SPC t h", "  Themes  ", ":Telescope themes<CR>"),
-      button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+      button("SPC e c", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
     },
     opts = {
       spacing = 1,
