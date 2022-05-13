@@ -1,7 +1,7 @@
 return function()
   require("session_manager").setup(
     {
-    autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
+    autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
   })
 
   local config_group = vim.api.nvim_create_augroup('SessionAuGroup', {}) -- A global group for all your config autocommands
