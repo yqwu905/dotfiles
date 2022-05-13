@@ -2,6 +2,7 @@ return function()
   require('bufferline').setup({
     options = {
       offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+      numbers = "ordinal",
       buffer_close_icon = "",
       modified_icon = "",
       close_icon = "",
