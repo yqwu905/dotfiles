@@ -162,4 +162,6 @@ noremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 inoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 vnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 tnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
+
+tnoremap <Esc> <C-\><C-n>
 ]]
