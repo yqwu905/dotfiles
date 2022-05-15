@@ -1,6 +1,6 @@
 return function()
   require('nvim-lsp-installer').setup({
-    ensure_installed = { "sumneko_lua", "bashls", "clangd", "cmake", "julials", "texlab", "pyright" },
+    ensure_installed = { "sumneko_lua", "bashls", "clangd", "cmake", "julials", "texlab", "pyright", "ltex" },
     automatic_installation = true,
     ui = {
       icons = {
@@ -23,7 +23,7 @@ return function()
     },
   }
 
-  local servers = { "clangd", "pyright", "julials", "lsp_wl", "bashls", "cmake", "texlab" }
+  local servers = { "clangd", "pyright", "julials", "lsp_wl", "bashls", "cmake", "texlab", "ltex"}
 
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({})
