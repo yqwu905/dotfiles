@@ -255,3 +255,55 @@ _G.SyncVimWikiGitRepo = function()
 		'AsyncRun -mode=term -pos=bottom cd ~/repos/vimwiki && git add * && git commit -m "Update by vim" && git push'
 	)
 end
+
+function OpenInkscapeFile(name)
+  local job = require('plenary.job')
+  job:new({
+    command = 'inkscape.exe',
+    args = {name},
+    on_exit = vim.schedule_wrap(function(_, return_val)
+      os.execute("inkscape.exe -D --export-latex --export-type=\"pdf\" " .. name)
+    end),
+  }):start()
+end
+
+function GetInkscapeFileList()
+  local pdf_tex_files = vim.split(vim.fn.glob('./*/*.pdf_tex'), '\n')
+  vim.ui.select(pdf_tex_files, {
+    prompt = 'Select one inkscape file'
+  }, function(choice)
+    OpenInkscapeFile(string.sub(choice, 1, -8) .. "svg")
+  end)
+end
+
+function NewInkscapeFile()
+  vim.ui.input({prompt = 'Enter image name:', default='image/'},
+  function (input)
+    if input~=nil then
+      local p, f, e = string.match(input, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
+      if e~='svg' then
+        return -1
+      end
+      InsertNewLineContentAtCursor({
+        "\\begin{figure}[ht]",
+        "\t\\centering",
+        -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
+        "\t\\def\\svgwidth{\\columnwidth}",
+        "\t\\import{".. p .. '}{' .. f ..".pdf_tex}",
+        "\t\\label{fig:}",
+        "\t\\caption{}",
+        "\\end{figure}"
+      })
+      if vim.fn.filereadable(input)~=1 then
+        os.execute('cp ' .. vim.fn.stdpath('config')..'/static/drawing.svg ' .. vim.fn.getcwd() .. '/' .. input)
+      end
+      OpenInkscapeFile(input)
+    end
+  end)
+end
+
+function InsertNewLineContentAtCursor(content)
+  local cur_pos = vim.api.nvim_win_get_cursor(0)
+  local r,c = unpack(cur_pos)
+  vim.api.nvim_buf_set_lines(0, r, r, false, content)
+end
