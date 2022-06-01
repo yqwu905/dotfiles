@@ -267,7 +267,7 @@ function OpenInkscapeFile(name)
   }):start()
 end
 
-function GetInkscapeFileList()
+function _G.GetInkscapeFileList()
   local pdf_tex_files = vim.split(vim.fn.glob('./*/*.pdf_tex'), '\n')
   vim.ui.select(pdf_tex_files, {
     prompt = 'Select one inkscape file'
@@ -276,7 +276,7 @@ function GetInkscapeFileList()
   end)
 end
 
-function NewInkscapeFile()
+function _G.NewInkscapeFile()
   vim.ui.input({prompt = 'Enter image name:', default='image/'},
   function (input)
     if input~=nil then

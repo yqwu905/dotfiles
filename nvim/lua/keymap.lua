@@ -100,6 +100,11 @@ wk.register({
   u = {
     name = "+utils",
     r = { "<cmd>lua AsyncRunCode()<cr>", "run" },
+    i = {
+      name = "+inkscape",
+      i = {"<cmd>lua NewInkscapeFile()<cr>", "new"},
+      l = {"<cmd>lua GetInkscapeFileList()<cr>", "list"},
+    },
     c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
     s = { "<cmd>Vista<cr>", "taglist" },
     p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
