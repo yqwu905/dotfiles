@@ -93,7 +93,7 @@ return function()
       { name = "nvim_lua" },
       { name = "path" },
       { name = "cmdline" },
-      { name = "spell" },
+      -- { name = "spell" },
     },
     window = {
       completion = cmp.config.window.bordered(),
