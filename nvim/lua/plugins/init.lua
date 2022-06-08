@@ -149,7 +149,12 @@ return require('packer').startup(function(use)
   }
 
   -- Specific Language
-  use "iamcco/markdown-preview.nvim"
+  use {
+    "iamcco/markdown-preview.nvim",
+    run = function ()
+      vim.fn["mkdp#util#install"]()
+    end
+  }
   use "lervag/vimtex"
   use "JuliaEditorSupport/julia-vim"
 
