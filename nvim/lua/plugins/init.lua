@@ -2,6 +2,7 @@ local fn = vim.fn
 
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
+  print("Download packer.nvim")
   packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
   vim.cmd [[packadd packer.nvim]]
 end
@@ -26,7 +27,10 @@ packer.init {
   },
 }
 
-vim.notify = require('notify')
+local status_ok, notify = pcall(require, "notify")
+if status_ok then
+  vim.notify = require('notify')
+end
 
 return require('packer').startup(function(use)
   -- Basic Plugins
