@@ -1,7 +1,7 @@
 return function()
   require('nvim-lsp-installer').setup({
-    ensure_installed = { "sumneko_lua", "bashls", "clangd", "cmake", "julials", "texlab", "pyright", "ltex" },
-    automatic_installation = true,
+    ensure_installed = { "sumneko_lua", "bashls", "clangd", "cmake", "texlab", "pyright", "ltex" },
+    -- automatic_installation = true,
     ui = {
       icons = {
         server_installed = "✓",
@@ -23,10 +23,42 @@ return function()
     },
   }
 
-  local servers = { "clangd", "pyright", "julials", "lsp_wl", "bashls", "cmake", "texlab", "ltex"}
+  local function create_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.preselectSupport = true
+    capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+    capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+    capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+    capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+    capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+      properties = { "documentation", "detail", "additionalTextEdits" },
+    }
+    capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
+    capabilities.textDocument.codeAction = {
+      dynamicRegistration = true,
+      codeActionLiteralSupport = {
+        codeActionKind = {
+          valueSet = (function()
+            local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+            table.sort(res)
+            return res
+          end)(),
+        },
+      },
+    }
+    return capabilities
+  end
+
+  local servers = { "clangd", "pyright", "lsp_wl", "julials", "bashls", "cmake", "texlab", "ltex" }
+
+  require("lsp_signature").setup()
 
   for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup({})
+    lspconfig[lsp].setup({
+      capabilities = create_capabilities(),
+    })
   end
 
   lspconfig.sumneko_lua.setup({
