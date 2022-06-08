@@ -71,6 +71,7 @@ vim.g.clipboard = {
   },
   cache_enabled = 0,
 }
+vim.g.vimtex_fold_enabled=true
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
