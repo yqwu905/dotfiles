@@ -129,9 +129,7 @@ return require('packer').startup(function(use)
     "nvim-telescope/telescope.nvim",
     config = require("plugins.telescope")
   }
-  use "MattesGroeger/vim-bookmarks"
   use "nvim-telescope/telescope-rg.nvim"
-  use "tom-anders/telescope-vim-bookmarks.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
 
   -- Git

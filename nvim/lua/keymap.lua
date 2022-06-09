@@ -44,8 +44,6 @@ wk.register({
     a = { "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <cr>", "find all files" },
     f = { "<cmd>Telescope find_files<cr>", "find files" },
     h = { "<cmd>Telescope help_tags<cr>", "help tags" },
-    m = { "<cmd>Telescope vim_bookmarks current_file<cr>", "current file marks" },
-    M = { "<cmd>Telescope vim_bookmarks all<cr>", "all marks" },
     o = { "<cmd>Telescope oldfiles<cr>", "old files" },
     w = { "<cmd>Telescope live_grep<cr>", "live grep" },
     s = { "<cmd>lua DynamicWorkspaceSymbol()<CR>", "workspace symbols" },

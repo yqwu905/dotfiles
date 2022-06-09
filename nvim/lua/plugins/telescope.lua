@@ -54,7 +54,7 @@ return function()
     },
   })
 
-  local extensions = { "notify", "live_grep_raw", "vim_bookmarks", "ui-select" }
+  local extensions = { "notify", "live_grep_raw", "ui-select" }
 
   pcall(function()
     for _, ext in ipairs(extensions) do
