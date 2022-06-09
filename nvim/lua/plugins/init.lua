@@ -123,7 +123,6 @@ return require('packer').startup(function(use)
   use "hrsh7th/cmp-cmdline"
   use "hrsh7th/cmp-nvim-lua"
   use "quangnguyen30192/cmp-nvim-ultisnips"
-  use "f3fora/cmp-spell"
 
   --Telescope
   use {
