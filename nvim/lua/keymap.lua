@@ -108,6 +108,11 @@ wk.register({
     j = { "<cmd>lua __fterm_julia()<cr>", "julia" },
     p = { "<cmd>lua __fterm_python()<cr>", "python" },
   },
+  w = {
+    name = "+vimwiki",
+    f = { "<cmd>Telescope vimwiki<cr>", "find file" },
+    g = { "<cmd>Telescope vimwiki live_grep<cr>", "livegrep" },
+  },
   x = { "<cmd>lua close_buffer()<cr>", "close buf" },
 }, opts)
 

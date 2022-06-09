@@ -139,6 +139,7 @@ return require('packer').startup(function(use)
     "lewis6991/gitsigns.nvim",
     config = require('plugins.gitsigns'),
   }
+  use "ElPiloto/telescope-vimwiki.nvim"
 
   -- Specific Language
   use {
