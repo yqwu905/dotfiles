@@ -15,15 +15,7 @@ return function()
   local util = require("lspconfig.util")
   local configs = require("lspconfig.configs")
 
-  configs.lsp_wl = {
-    default_config = {
-      cmd = { "nc", "localhost", "6536" },
-      filetypes = { "mma", "wl" },
-      root_dir = util.path.dirname,
-    },
-  }
-
-  local servers = { "clangd", "pyright", "lsp_wl", "julials", "bashls", "cmake", "texlab", "ltex" }
+  local servers = { "clangd", "pyright", "julials", "bashls", "cmake", "texlab", "ltex" }
 
   require("lsp_signature").setup()
 
@@ -48,4 +40,14 @@ return function()
       },
     }
   })
+
+  configs.lsp_wl = {
+    default_config = {
+      cmd = { "nc", "localhost", "6536" },
+      filetypes = { "mma", "wl" },
+      root_dir = util.path.dirname,
+    },
+  }
+
+  lspconfig.lsp_wl.setup({})
 end
