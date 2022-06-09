@@ -134,7 +134,6 @@ return require('packer').startup(function(use)
   use "nvim-telescope/telescope-rg.nvim"
   use "tom-anders/telescope-vim-bookmarks.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
-  use "lewis6991/spellsitter.nvim"
 
   -- Git
   use "sindrets/diffview.nvim"
