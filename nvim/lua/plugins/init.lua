@@ -149,6 +149,10 @@ return require('packer').startup(function(use)
   }
   use "lervag/vimtex"
   use "JuliaEditorSupport/julia-vim"
+  use {
+    "vimwiki/vimwiki",
+    config = require("plugins.vimwiki")
+  }
 
   if packer_bootstrap then
     require('packer').sync()
