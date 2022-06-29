@@ -1,0 +1,396 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+context "math()"
+snippet () "Round Bracket"
+\left($0\right)
+endsnippet
+
+context "math()"
+snippet [] "Square Bracket"
+\left[$0\right]
+endsnippet
+
+context "math()"
+snippet \\{ "Big Bracket"
+\left\{
+	$0
+\right.
+endsnippet
+
+context "math()"
+snippet bf "Bold" wA
+{\bf $1}$0
+endsnippet
+
+priority -1
+snippet bf "Bold" wA
+**$1**$0
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet head "Markdown Header for Hexo" wA
+---
+title: $1
+tags: ['$2']
+categories:
+  - $3
+photos: https://image.yqwu.site/$4
+---
+
+# $1
+$5
+endsnippet
+
+snippet td "todo" bA
+- [$1] $2
+$0
+endsnippet
+
+snippet dm "Math" wA
+$$ $1 $$
+$0
+endsnippet
+
+context "math()"
+snippet dd "downscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet td "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet dg "dagger" iA
+^{\dagger}$0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+context "math()"
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet	
+
+context "math()"
+priority 10
+snippet "bar" "bar" riA
+\overline{$1}$0
+endsnippet
+
+context "math()"
+snippet "bra" "bra" riA
+\bra{$1}$0
+endsnippet
+
+context "math()"
+snippet "ket" "ket" riA
+\ket{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet "hbar" "hbar" riA
+\hbar
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])bar" "bar" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+priority 10
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+priority 10
+snippet "mcal" "mathcal" riA
+\mathcal{$1}$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])mcal" "mathcal" riA
+\mathcal{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "(\\?\w+)(,\.|\.,)" "vector postfix" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet p "pi" w
+\pi
+endsnippet
+
+context "math()"
+snippet P "Pi" w
+\Pi
+endsnippet
+
+context "math()"
+snippet ph "phi" w
+\phi
+endsnippet
+
+context "math()"
+snippet Ph "Phi" w
+\Phi
+endsnippet
+
+context "math()"
+snippet e "epsilon" w
+\epsilon
+endsnippet
+
+context "math()"
+snippet E "Epsilon" w
+\Epsilon
+endsnippet
+
+context "math()"
+snippet a "alpha" w
+\alpha
+endsnippet
+
+context "math()"
+snippet A "Alpha" w
+\Alpha
+endsnippet
+
+context "math()"
+snippet b "beta" w
+\beta
+endsnippet
+
+context "math()"
+snippet B "Beta" w
+\Beta
+endsnippet
+
+context "math()"
+snippet c "chi" w
+\chi
+endsnippet
+
+context "math()"
+snippet C "Chi" w
+\Chi
+endsnippet
+
+context "math()"
+snippet d "delta" w
+\delta
+endsnippet
+
+context "math()"
+snippet D "Delta" w
+\Delta
+endsnippet
+
+context "math()"
+snippet et "eta" w
+\eta
+endsnippet
+
+context "math()"
+snippet Et "Eta" w
+\Eta
+endsnippet
+
+context "math()"
+snippet g "gamma" w
+\gamma
+endsnippet
+
+context "math()"
+snippet G "Gamma" w
+\Gamma
+endsnippet
+
+context "math()"
+snippet k "kappa" w
+\kappa
+endsnippet
+
+context "math()"
+snippet K "Kappa" w
+\Kappa
+endsnippet
+
+context "math()"
+snippet l "lambda" w
+\lambda
+endsnippet
+
+context "math()"
+snippet L "Lambda" w
+\Lambda
+endsnippet
+
+context "math()"
+snippet m "mu" w
+\mu
+endsnippet
+
+context "math()"
+snippet M "Mu" w
+\Mu
+endsnippet
+
+context "math()"
+snippet n "nu" w
+\nu
+endsnippet
+
+context "math()"
+snippet N "Nu" w
+\Nu
+endsnippet
+
+context "math()"
+snippet o "omega" w
+\omega
+endsnippet
+
+context "math()"
+snippet O "Omega" w
+\Omega
+endsnippet
+
+context "math()"
+snippet r "rho" w
+\rho
+endsnippet
+
+context "math()"
+snippet R "Rho" w
+\Rho
+endsnippet
+
+context "math()"
+snippet s "sigma" w
+\sigma
+endsnippet
+
+context "math()"
+snippet S "Sigma" w
+\Sigma
+endsnippet
+
+context "math()"
+snippet t "tau" w
+\tau
+endsnippet
+
+context "math()"
+snippet T "Tau" w
+\Tau
+endsnippet
+
+context "math()"
+snippet th "theta" w
+\theta
+endsnippet
+
+context "math()"
+snippet Th "Theta" w
+\Theta
+endsnippet
+
+context "math()"
+snippet x "xi" w
+\xi
+endsnippet
+
+context "math()"
+snippet X "Xi" w
+\Xi
+endsnippet
+
+context "math()"
+snippet z "zeta" w
+\zeta
+endsnippet
+
+context "math()"
+snippet Z "Zeta" w
+\Zeta
+endsnippet
+
+context "math()"
+snippet ps "psi" w
+\psi
+endsnippet
+
+context "math()"
+snippet Ps "Psi" w
+\Psi
+endsnippet		
+
+context "math()"
+snippet j "varphi" w
+\varphi
+endsnippet		
+
+context "math()"
+snippet "lrr" "lr()" riA
+\left($1\right)$0
+endsnippet
+
+context "math()"
+snippet "lrs" "lr[]" riA
+\left[$1\right]$0
+endsnippet
