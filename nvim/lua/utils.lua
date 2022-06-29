@@ -270,8 +270,8 @@ function OpenInkscapeFile(name)
 end
 
 function _G.GetInkscapeFileList()
-  local pdf_tex_files = vim.split(vim.fn.glob('./*/*.pdf_tex'), '\n')
-  vim.ui.select(pdf_tex_files, {
+  local svg_files = vim.split(vim.fn.glob(vim.fn.expand("%:h") .. '/*/*.svg'), '\n')
+  vim.ui.select(svg_files, {
     prompt = 'Select one inkscape file'
   }, function(choice)
     OpenInkscapeFile(string.sub(choice, 1, -8) .. "svg")
@@ -286,20 +286,26 @@ function _G.NewInkscapeFile()
       if e~='svg' then
         return -1
       end
-      InsertNewLineContentAtCursor({
-        "\\begin{figure}[ht]",
-        "\t\\centering",
-        -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
-        "\t\\def\\svgwidth{\\columnwidth}",
-        "\t\\import{".. p .. '}{' .. f ..".pdf_tex}",
-        "\t\\label{fig:}",
-        "\t\\caption{}",
-        "\\end{figure}"
-      })
-      if vim.fn.filereadable(input)~=1 then
-        os.execute('cp ' .. vim.fn.stdpath('config')..'/static/drawing.svg ' .. vim.fn.getcwd() .. '/' .. input)
+	    if vim.bo.filetype == "tex" then
+        InsertNewLineContentAtCursor({
+          "\\begin{figure}[ht]",
+          "\t\\centering",
+          -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
+          "\t\\def\\svgwidth{\\columnwidth}",
+          "\t\\import{".. p .. '}{' .. f ..".pdf_tex}",
+          "\t\\label{fig:}",
+          "\t\\caption{}",
+          "\\end{figure}"
+        })
+      elseif vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
+        InsertNewLineContentAtCursor({
+          "![](" .. p .. f .. ".svg)",
+        })
       end
-      OpenInkscapeFile(input)
+      if vim.fn.filereadable(input)~=1 then
+        os.execute('cp ' .. vim.fn.stdpath('config')..'/static/drawing.svg ' .. vim.fn.expand("%:h") .. '/' .. input)
+      end
+      OpenInkscapeFile(vim.fn.expand("%:h") .. '/' .. input)
     end
   end)
 end
