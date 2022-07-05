@@ -78,45 +78,44 @@ _G.close_buffer = function(force)
       end
    else
       switch_buffer(windows, next_buf)
-      vim.cmd(string.format("silent! confirm bd %d", buf))
-   end
-   if vim.fn.buflisted(buf) == 1 then
-      switch_buffer(windows, buf)
-   end
-end
-
-function AsyncRunCPP()
-	if vim.fn.filereadable("CMakeLists.txt") ~= 0 then
-		if vim.fn.isdirectory("cmake_build") == 0 then
-			os.execute("mkdir cmake_build")
-		end
-		local handle = io.popen('sed -n "s/^.*add_executable(\\(\\S*\\).*$/\\1/p" CMakeLists.txt')
-		local executable = handle:read("*a")
-		handle:close()
-		vim.cmd("AsyncRun -mode=term -pos=bottom cd cmake_build && cmake -G Ninja .. && ninja && ./" .. executable)
-	else
-		vim.cmd("AsyncRun -mode=term -pos=bottom g++ -std=c++11 -o a.out " .. vim.fn.expand("%") .. "&&./a.out")
-	end
+      vim.cmd(string.format("bd! %d", buf))
+    end
+  else
+    switch_buffer(windows, next_buf)
+    vim.cmd(string.format("silent! confirm bd %d", buf))
+  end
+  if vim.fn.buflisted(buf) == 1 then
+    switch_buffer(windows, buf)
+  end
 end
 
 _G.AsyncRunCode = function()
-	local path = '"' .. vim.fn.expand("%") .. '"'
-	if vim.bo.filetype == "cpp" then
-		AsyncRunCPP()
+  local path = '"' .. vim.fn.expand("%") .. '"'
+  if vim.fn.filereadable("CMakeLists.txt") ~= 0 then
+    vim.notify("Build Cmake Project")
+    if vim.fn.isdirectory("cmake_build") == 0 then
+      os.execute("mkdir cmake_build")
+    end
+    local handle = io.popen('sed -n "s/^.*add_executable(\\(\\S*\\).*$/\\1/p" CMakeLists.txt')
+    local executable = handle:read("*a")
+    handle:close()
+    vim.cmd("AsyncRun -mode=term -pos=bottom cd cmake_build && cmake -G Ninja .. && ninja && ./" .. executable)
+  elseif vim.bo.filetype == "cpp" then
+    vim.cmd("AsyncRun -mode=term -pos=bottom g++ -std=c++11 -o a.out " .. vim.fn.expand("%") .. "&&./a.out")
   elseif vim.bo.filetype == "c" then
-		vim.cmd("AsyncRun -mode=term -pos=bottom gcc -o a.out " .. vim.fn.expand("%") .. "&&./a.out")
-	elseif vim.bo.filetype == "python" then
-		vim.cmd("AsyncRun -mode=term -pos=bottom python " .. path)
-	elseif vim.bo.filetype == "mma" then
-		vim.cmd("AsyncRun -mode=term -pos=bottom wolframscript -f " .. vim.fn.expand("%"))
-	elseif vim.bo.filetype == "julia" then
-		vim.cmd("AsyncRun -mode=term -pos=bottom julia " .. path)
-	elseif vim.bo.filetype == "tex" then
-		require("notify")("Compling latex file.")
-		vim.cmd("AsyncRun latexmk -xelatex " .. path)
-	elseif vim.bo.filetype == "lua" then
-		vim.cmd("AsyncRun -mode=term -pos=bottom lua " .. path)
-	end
+    vim.cmd("AsyncRun -mode=term -pos=bottom gcc -o a.out " .. vim.fn.expand("%") .. "&&./a.out")
+  elseif vim.bo.filetype == "python" then
+    vim.cmd("AsyncRun -mode=term -pos=bottom python " .. path)
+  elseif vim.bo.filetype == "mma" then
+    vim.cmd("AsyncRun -mode=term -pos=bottom wolframscript -f " .. vim.fn.expand("%"))
+  elseif vim.bo.filetype == "julia" then
+    vim.cmd("AsyncRun -mode=term -pos=bottom julia " .. path)
+  elseif vim.bo.filetype == "tex" then
+    require("notify")("Compling latex file.")
+    vim.cmd("AsyncRun latexmk -xelatex " .. path)
+  elseif vim.bo.filetype == "lua" then
+    vim.cmd("AsyncRun -mode=term -pos=bottom lua " .. path)
+  end
 end
 
 local fterm = require("FTerm")
