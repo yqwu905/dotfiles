@@ -1,82 +1,78 @@
 _G.close_buffer = function(force)
-   local opts = {
-      next = "cycle", -- how to retrieve the next buffer
-      quit = false, -- exit when last buffer is deleted
-   }
-   local function switch_buffer(windows, buf)
-      local cur_win = vim.fn.winnr()
-      for _, winid in ipairs(windows) do
-         winid = tonumber(winid) or 0
-         vim.cmd(string.format("%d wincmd w", vim.fn.win_id2win(winid)))
-         vim.cmd(string.format("buffer %d", buf))
+  local opts = {
+    next = "cycle", -- how to retrieve the next buffer
+    quit = false, -- exit when last buffer is deleted
+  }
+  local function switch_buffer(windows, buf)
+    local cur_win = vim.fn.winnr()
+    for _, winid in ipairs(windows) do
+      winid = tonumber(winid) or 0
+      vim.cmd(string.format("%d wincmd w", vim.fn.win_id2win(winid)))
+      vim.cmd(string.format("buffer %d", buf))
+    end
+    vim.cmd(string.format("%d wincmd w", cur_win)) -- return to original window
+  end
+
+  local function get_next_buf(buf)
+    local next = vim.fn.bufnr "#"
+    if opts.next == "alternate" and vim.fn.buflisted(next) == 1 then
+      return next
+    end
+    for i = 0, vim.fn.bufnr "$" - 1 do
+      next = (buf + i) % vim.fn.bufnr "$" + 1 -- will loop back to 1
+      if vim.fn.buflisted(next) == 1 then
+        return next
       end
-      vim.cmd(string.format("%d wincmd w", cur_win)) -- return to original window
-   end
+    end
+  end
 
-   local function get_next_buf(buf)
-      local next = vim.fn.bufnr "#"
-      if opts.next == "alternate" and vim.fn.buflisted(next) == 1 then
-         return next
-      end
-      for i = 0, vim.fn.bufnr "$" - 1 do
-         next = (buf + i) % vim.fn.bufnr "$" + 1 -- will loop back to 1
-         if vim.fn.buflisted(next) == 1 then
-            return next
-         end
-      end
-   end
+  local buf = vim.fn.bufnr()
+  if vim.fn.buflisted(buf) == 0 then -- exit if buffer number is invalid
+    vim.cmd "close"
+    return
+  end
 
-   local buf = vim.fn.bufnr()
-   if vim.fn.buflisted(buf) == 0 then -- exit if buffer number is invalid
-      vim.cmd "close"
-      return
-   end
-
-   if #vim.fn.getbufinfo { buflisted = 1 } < 2 then
-      if opts.quit then
-         if force then
-            vim.cmd "qall!"
-         else
-            vim.cmd "confirm qall"
-         end
-         return
-      end
-
-      local chad_term, _ = pcall(function()
-         return vim.api.nvim_buf_get_var(buf, "term_type")
-      end)
-
-      if chad_term then
-         vim.cmd(string.format("setlocal nobl", buf))
-         vim.cmd "enew"
-         return
-      end
-      vim.cmd "enew"
-      vim.cmd "bp"
-   end
-
-   local next_buf = get_next_buf(buf)
-   local windows = vim.fn.getbufinfo(buf)[1].windows
-
-   if force or vim.fn.getbufvar(buf, "&buftype") == "terminal" then
-      local chad_term, type = pcall(function()
-         return vim.api.nvim_buf_get_var(buf, "term_type")
-      end)
-
-      if chad_term then
-         if type == "wind" then
-            vim.cmd(string.format("%d bufdo setlocal nobl", buf))
-            vim.cmd "BufferLineCycleNext"
-         else
-            local cur_win = vim.fn.winnr()
-            vim.cmd(string.format("%d wincmd c", cur_win))
-            return
-         end
+  if #vim.fn.getbufinfo { buflisted = 1 } < 2 then
+    if opts.quit then
+      if force then
+        vim.cmd "qall!"
       else
-         switch_buffer(windows, next_buf)
-         vim.cmd(string.format("bd! %d", buf))
+        vim.cmd "confirm qall"
       end
-   else
+      return
+    end
+
+    local chad_term, _ = pcall(function()
+      return vim.api.nvim_buf_get_var(buf, "term_type")
+    end)
+
+    if chad_term then
+      vim.cmd(string.format("setlocal nobl", buf))
+      vim.cmd "enew"
+      return
+    end
+    vim.cmd "enew"
+    vim.cmd "bp"
+  end
+
+  local next_buf = get_next_buf(buf)
+  local windows = vim.fn.getbufinfo(buf)[1].windows
+
+  if force or vim.fn.getbufvar(buf, "&buftype") == "terminal" then
+    local chad_term, type = pcall(function()
+      return vim.api.nvim_buf_get_var(buf, "term_type")
+    end)
+
+    if chad_term then
+      if type == "wind" then
+        vim.cmd(string.format("%d bufdo setlocal nobl", buf))
+        vim.cmd "BufferLineCycleNext"
+      else
+        local cur_win = vim.fn.winnr()
+        vim.cmd(string.format("%d wincmd c", cur_win))
+        return
+      end
+    else
       switch_buffer(windows, next_buf)
       vim.cmd(string.format("bd! %d", buf))
     end
@@ -125,118 +121,118 @@ local julia_term = fterm:new({ ft = "fterm_julia", cmd = "julia" })
 local python_term = fterm:new({ ft = "fterm_python", cmd = "ipython" })
 
 _G.__fterm_wolfram = function()
-	wolfram_term:toggle()
+  wolfram_term:toggle()
 end
 _G.__fterm_btop = function()
-	btop_term:toggle()
+  btop_term:toggle()
 end
 _G.__fterm_julia = function()
-	julia_term:toggle()
+  julia_term:toggle()
 end
 _G.__fterm_python = function()
-	python_term:toggle()
+  python_term:toggle()
 end
 _G.Diffviewopen = 0
 
 _G.SwitchConcealLevel = function()
-	if vim.o.conceallevel ~= 0 then
-		vim.o.conceallevel = 0
-	else
-		vim.o.conceallevel = 2
-	end
+  if vim.o.conceallevel ~= 0 then
+    vim.o.conceallevel = 0
+  else
+    vim.o.conceallevel = 2
+  end
 end
 
 _G.ToggleDiffView = function(isdir)
-	if isdir then
-		if Diffviewopen == 0 then
-			vim.cmd("DiffviewFileHistory .")
-			Diffviewopen = 1
-		else
-			vim.cmd("DiffviewClose")
-			Diffviewopen = 0
-		end
-	else
-		if Diffviewopen == 0 then
-			vim.cmd("DiffviewFileHistory")
-			Diffviewopen = 1
-		else
-			vim.cmd("DiffviewClose")
-			Diffviewopen = 0
-		end
-	end
+  if isdir then
+    if Diffviewopen == 0 then
+      vim.cmd("DiffviewFileHistory .")
+      Diffviewopen = 1
+    else
+      vim.cmd("DiffviewClose")
+      Diffviewopen = 0
+    end
+  else
+    if Diffviewopen == 0 then
+      vim.cmd("DiffviewFileHistory")
+      Diffviewopen = 1
+    else
+      vim.cmd("DiffviewClose")
+      Diffviewopen = 0
+    end
+  end
 end
 
 _G.MarpPreviewOn = 0
 _G.ToggleMarkdownPreview = function()
-	local marp_path = vim.api.nvim_buf_get_name(0)
-	local extension = marp_path:match("^.+%.(.+)$")
-	if extension == "md" then
-		vim.cmd("MarkdownPreview")
-	elseif extension == "marp" then
-		if MarpPreviewOn == 0 then
-			require("notify")("Start MARP Preview")
-			vim.cmd("AsyncRun marp -w " .. '"' .. marp_path .. '"')
-			vim.cmd(
-				':silent exec "!firefox.exe \\"file://///wsl.localhost/Arch/'
-					.. marp_path:match("^(.+%.).+$")
-					.. 'html\\""'
-			)
-			MarpPreviewOn = 1
-		else
-			require("notify")("Stop MARP Preview")
-			vim.cmd("AsyncStop")
-			MarpPreviewOn = 0
-		end
-	end
+  local marp_path = vim.api.nvim_buf_get_name(0)
+  local extension = marp_path:match("^.+%.(.+)$")
+  if extension == "md" then
+    vim.cmd("MarkdownPreview")
+  elseif extension == "marp" then
+    if MarpPreviewOn == 0 then
+      require("notify")("Start MARP Preview")
+      vim.cmd("AsyncRun marp -w " .. '"' .. marp_path .. '"')
+      vim.cmd(
+        ':silent exec "!firefox.exe \\"file://///wsl.localhost/Arch/'
+        .. marp_path:match("^(.+%.).+$")
+        .. 'html\\""'
+      )
+      MarpPreviewOn = 1
+    else
+      require("notify")("Stop MARP Preview")
+      vim.cmd("AsyncStop")
+      MarpPreviewOn = 0
+    end
+  end
 end
 
 local function dorename(win)
-	local new_name = vim.trim(vim.fn.getline("."))
-	vim.api.nvim_win_close(win, true)
-	vim.lsp.buf.rename(new_name)
+  local new_name = vim.trim(vim.fn.getline("."))
+  vim.api.nvim_win_close(win, true)
+  vim.lsp.buf.rename(new_name)
 end
 
 local function rename()
-	local opts = {
-		relative = "cursor",
-		row = 0,
-		col = 0,
-		width = 30,
-		height = 1,
-		style = "minimal",
-		border = "single",
-	}
-	local cword = vim.fn.expand("<cword>")
-	local buf = vim.api.nvim_create_buf(false, true)
-	local win = vim.api.nvim_open_win(buf, true, opts)
-	local fmt = "<cmd>lua Rename.dorename(%d)<CR>"
+  local opts = {
+    relative = "cursor",
+    row = 0,
+    col = 0,
+    width = 30,
+    height = 1,
+    style = "minimal",
+    border = "single",
+  }
+  local cword = vim.fn.expand("<cword>")
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, true, opts)
+  local fmt = "<cmd>lua Rename.dorename(%d)<CR>"
 
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, { cword })
-	vim.api.nvim_buf_set_keymap(buf, "i", "<CR>", string.format(fmt, win), { silent = true })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { cword })
+  vim.api.nvim_buf_set_keymap(buf, "i", "<CR>", string.format(fmt, win), { silent = true })
 end
 
 local function docommit(win)
-	local commit_message = vim.trim(vim.fn.getline("."))
-	vim.api.nvim_win_close(win, true)
-	os.execute(string.format("git commit -m '%s'", commit_message))
+  local commit_message = vim.trim(vim.fn.getline("."))
+  vim.api.nvim_win_close(win, true)
+  os.execute(string.format("git commit -m '%s'", commit_message))
 end
 
 local function commit()
-	local opts = {
-		relative = "editor",
-		col = math.ceil(0.5 * (vim.o.columns - 60)),
-		row = math.ceil(0.5 * (vim.o.lines - 4) - 1),
-		width = 60,
-		height = 4,
-		style = "minimal",
-		border = "double",
-	}
-	local buf = vim.api.nvim_create_buf(false, true)
-	local win = vim.api.nvim_open_win(buf, true, opts)
-	local fmt = "<cmd>lua Commit.docommit(%d)<CR>"
+  local opts = {
+    relative = "editor",
+    col = math.ceil(0.5 * (vim.o.columns - 60)),
+    row = math.ceil(0.5 * (vim.o.lines - 4) - 1),
+    width = 60,
+    height = 4,
+    style = "minimal",
+    border = "double",
+  }
+  local buf = vim.api.nvim_create_buf(false, true)
+  local win = vim.api.nvim_open_win(buf, true, opts)
+  local fmt = "<cmd>lua Commit.docommit(%d)<CR>"
 
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-	vim.api.nvim_buf_set_keymap(buf, "i", "<CR>", string.format(fmt, win), { silent = true })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+  vim.api.nvim_buf_set_keymap(buf, "i", "<CR>", string.format(fmt, win), { silent = true })
 end
 
 _G.Commit = { commit = commit, docommit = docommit }
@@ -252,16 +248,16 @@ _G.DynamicWorkspaceSymbol = function()
 end
 
 _G.SyncVimWikiGitRepo = function()
-	vim.cmd(
-		'AsyncRun -mode=term -pos=bottom cd ~/repos/vimwiki && git add * && git commit -m "Update by vim" && git push'
-	)
+  vim.cmd(
+    'AsyncRun -mode=term -pos=bottom cd ~/repos/vimwiki && git add * && git commit -m "Update by vim" && git push'
+  )
 end
 
 function OpenInkscapeFile(name)
   local job = require('plenary.job')
   job:new({
     command = 'inkscape.exe',
-    args = {name},
+    args = { name },
     on_exit = vim.schedule_wrap(function(_, return_val)
       os.execute("inkscape.exe -D --export-latex --export-type=\"pdf\" " .. name)
     end),
@@ -278,39 +274,39 @@ function _G.GetInkscapeFileList()
 end
 
 function _G.NewInkscapeFile()
-  vim.ui.input({prompt = 'Enter image name:', default='image/'},
-  function (input)
-    if input~=nil then
-      local p, f, e = string.match(input, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
-      if e~='svg' then
-        return -1
+  vim.ui.input({ prompt = 'Enter image name:', default = 'image/' },
+    function(input)
+      if input ~= nil then
+        local p, f, e = string.match(input, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
+        if e ~= 'svg' then
+          return -1
+        end
+        if vim.bo.filetype == "tex" then
+          InsertNewLineContentAtCursor({
+            "\\begin{figure}[ht]",
+            "\t\\centering",
+            -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
+            "\t\\def\\svgwidth{\\columnwidth}",
+            "\t\\import{" .. p .. '}{' .. f .. ".pdf_tex}",
+            "\t\\label{fig:}",
+            "\t\\caption{}",
+            "\\end{figure}"
+          })
+        elseif vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
+          InsertNewLineContentAtCursor({
+            "![](" .. p .. f .. ".svg)",
+          })
+        end
+        if vim.fn.filereadable(input) ~= 1 then
+          os.execute('cp ' .. vim.fn.stdpath('config') .. '/static/drawing.svg ' .. vim.fn.expand("%:h") .. '/' .. input)
+        end
+        OpenInkscapeFile(vim.fn.expand("%:h") .. '/' .. input)
       end
-	    if vim.bo.filetype == "tex" then
-        InsertNewLineContentAtCursor({
-          "\\begin{figure}[ht]",
-          "\t\\centering",
-          -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
-          "\t\\def\\svgwidth{\\columnwidth}",
-          "\t\\import{".. p .. '}{' .. f ..".pdf_tex}",
-          "\t\\label{fig:}",
-          "\t\\caption{}",
-          "\\end{figure}"
-        })
-      elseif vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
-        InsertNewLineContentAtCursor({
-          "![](" .. p .. f .. ".svg)",
-        })
-      end
-      if vim.fn.filereadable(input)~=1 then
-        os.execute('cp ' .. vim.fn.stdpath('config')..'/static/drawing.svg ' .. vim.fn.expand("%:h") .. '/' .. input)
-      end
-      OpenInkscapeFile(vim.fn.expand("%:h") .. '/' .. input)
-    end
-  end)
+    end)
 end
 
 function InsertNewLineContentAtCursor(content)
   local cur_pos = vim.api.nvim_win_get_cursor(0)
-  local r,c = unpack(cur_pos)
+  local r, c = unpack(cur_pos)
   vim.api.nvim_buf_set_lines(0, r, r, false, content)
 end
