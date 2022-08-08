@@ -88,11 +88,10 @@ wk.register({
     u = { "<cmd>PackerSync<cr>", "sync" },
   },
   q = {
-    name = "+quickfix",
-    f = { "<cmd>QFToggle<cr>", "open quickfix" },
-    l = { "<cmd>LLToggle<cr>", "open loclist" },
-    n = { "<cmd>QNext<cr>", "next quickfix/loclist item" },
-    p = { "<cmd>QPrev<cr>", "prev quickfix/loclist item" },
+    name = "+quit",
+    q = {"<cmd>wqa<cr>", "quit"},
+    f = {"<cmd>qa!<cr>", "force quit"},
+    x = {"<cmd>lua close_buffer()<cr>", "close buffer"}
   },
   u = {
     name = "+utils",
@@ -120,7 +119,16 @@ wk.register({
     f = { "<cmd>Telescope vimwiki<cr>", "find file" },
     g = { "<cmd>Telescope vimwiki live_grep<cr>", "livegrep" },
   },
-  x = { "<cmd>lua close_buffer()<cr>", "close buf" },
+  x = {
+    name = "+trouble",
+    x = {"<cmd>TroubleToggle<cr>", "toggle"},
+    w = {"<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace"},
+    d = {"<cmd>TroubleToggle document_diagnostics<cr>", "document"},
+    q = {"<cmd>TroubleToggle quickfix<cr>", "quickfix"},
+    l = {"<cmd>TroubleToggle loclist<cr>", "loclist"},
+    n = {"<cmd>lua require('trouble').next({jump = true})", "next"},
+    n = {"<cmd>lua require('trouble').previous({jump = true})", "prev"}
+  }
 }, opts)
 
 wk.register({

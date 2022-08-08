@@ -155,11 +155,11 @@ return require('packer').startup(function(use)
 
   -- Tools
   use "potamides/pantran.nvim"
-  use {
-    "stevearc/qf_helper.nvim",
-    config = require('plugins.qf_helper'),
-  }
   use "Pocco81/TrueZen.nvim"
+  use {
+    "folke/trouble.nvim",
+    config = require("plugins.trouble")
+  }
 
   if packer_bootstrap then
     require('packer').sync()
