@@ -71,7 +71,7 @@ wk.register({
     r = { "<cmd>lua Rename.rename()<cr>", "rename" },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "format" },
     a = { "<cmd>lua CodeAction()<cr>", "code actions" },
-    d = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "diagnostics" },
+    d = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "diagnostics" },
   },
   p = {
     name = "+packer",
