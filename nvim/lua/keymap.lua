@@ -68,6 +68,13 @@ wk.register({
   },
   l = {
     name = "+lsp",
+    s = {
+      name = "+server",
+      i = { "<cmd>LspInfo<cr>", "LSP Info" },
+      r = { "<cmd>LspRestart<cr>", "LSP Restart" },
+      k = { "<cmd>LspStop<cr>", "LSP Stop" },
+      s = { "<cmd>LspStart<cr>", "LSP Start" },
+    },
     r = { "<cmd>lua Rename.rename()<cr>", "rename" },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "format" },
     a = { "<cmd>lua CodeAction()<cr>", "code actions" },
