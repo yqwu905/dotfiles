@@ -273,34 +273,51 @@ function _G.GetInkscapeFileList()
   end)
 end
 
+local function getGitDir(path)
+  local handle = io.popen(string.format("cd %s;git rev-parse --show-toplevel 2>&1 | grep -v fatal: | tr -d '\\n'", path))
+  local res = handle:read("*a")
+  handle:close()
+  return res
+end
+
 function _G.NewInkscapeFile()
   vim.ui.input({ prompt = 'Enter image name:', default = 'image/' },
     function(input)
       if input ~= nil then
         local p, f, e = string.match(input, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
+        local cwd = vim.fn.expand("%:h")
+        local cgd = getGitDir(cwd)
+        if string.len(cgd) ~= 0 then
+          local i_start, _ = string.find(cwd, cgd)
+          if i_start == 1 then
+            cwd = cgd
+          end
+        end
         if e ~= 'svg' then
           return -1
         end
-        if vim.bo.filetype == "tex" then
-          InsertNewLineContentAtCursor({
-            "\\begin{figure}[ht]",
-            "\t\\centering",
-            -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
-            "\t\\def\\svgwidth{\\columnwidth}",
-            "\t\\import{" .. p .. '}{' .. f .. ".pdf_tex}",
-            "\t\\label{fig:}",
-            "\t\\caption{}",
-            "\\end{figure}"
-          })
-        elseif vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
-          InsertNewLineContentAtCursor({
-            "![](" .. p .. f .. ".svg)",
-          })
-        end
         if vim.fn.filereadable(input) ~= 1 then
-          os.execute('cp ' .. vim.fn.stdpath('config') .. '/static/drawing.svg ' .. vim.fn.expand("%:h") .. '/' .. input)
+          os.execute('cp ' .. vim.fn.stdpath('config') .. '/static/drawing.svg ' .. cwd .. '/' .. input)
         end
-        OpenInkscapeFile(vim.fn.expand("%:h") .. '/' .. input)
+        local status = pcall(OpenInkscapeFile, cwd .. '/' .. input)
+        if status then
+          if vim.bo.filetype == "tex" then
+            InsertNewLineContentAtCursor({
+              "\\begin{figure}[ht]",
+              "\t\\centering",
+              -- "\t\\includegraphics[width=0.8\\linewidth]{" .. input .."}",
+              "\t\\def\\svgwidth{\\columnwidth}",
+              "\t\\import{" .. p .. '}{' .. f .. ".pdf_tex}",
+              "\t\\label{fig:}",
+              "\t\\caption{}",
+              "\\end{figure}"
+            })
+          elseif vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
+            InsertNewLineContentAtCursor({
+              "![](" .. p .. f .. ".svg)",
+            })
+          end
+        end
       end
     end)
 end
