@@ -8,5 +8,5 @@ autocmd BufNewFile,BufRead *.tex set filetype=tex
 autocmd BufNewFile,BufRead *.md so $VIMRUNTIME/syntax/tex.vim
 autocmd BufNewFile,BufRead *.marp so $VIMRUNTIME/syntax/tex.vim
 
-autocmd FileType mma AsyncRun wolframscript -f " .. "~/tools/lsp-wl/init.wls --tcp-server=6536
+" autocmd FileType mma AsyncRun wolframscript -f " .. "~/tools/lsp-wl/init.wls --tcp-server=6536
 ]])
