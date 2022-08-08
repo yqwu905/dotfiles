@@ -43,6 +43,29 @@ return function()
     }
   })
 
+  lspconfig.efm.setup({
+    filetypes = { 'python' },
+    root_dir = function() return vim.fn.getcwd() end;
+    init_options = { documentFormatting = true },
+    settings = {
+      rootMarkers = { vim.fn.getcwd() },
+      languages = {
+        python = {
+          { -- flake8
+            lintCommand = "flake8 --max-line-length 160 --stdin-display-name ${INPUT} -",
+            lintIgnoreExitCode = true,
+            lintStdin = true,
+            lintFormats = { "%f:%l:%c: %m" },
+          },
+          { -- yapf
+            formatCommand = "yapf --quiet",
+            formatStdin = true
+          }
+        }
+      }
+    }
+  })
+
   -- configs.lsp_wl = {
   --   default_config = {
   --     cmd = { "nc", "localhost", "6536" },

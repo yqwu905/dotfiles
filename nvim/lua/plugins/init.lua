@@ -158,10 +158,6 @@ return require('packer').startup(function(use)
     config = require("plugins.vimwiki")
   }
   use "potamides/pantran.nvim"
-  use {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = require('plugins.nullls')
-  }
 
   if packer_bootstrap then
     require('packer').sync()
