@@ -71,6 +71,8 @@ vim.g.clipboard = {
 }
 vim.g.vimtex_fold_enabled=true
 
+vim.g.python3_host_prog = '/usr/sbin/python'
+
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 
