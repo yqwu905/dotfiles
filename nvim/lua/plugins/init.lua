@@ -144,15 +144,23 @@ return require('packer').startup(function(use)
   -- Specific Language
   use {
     "iamcco/markdown-preview.nvim",
-    run = function ()
+    run = function()
       vim.fn["mkdp#util#install"]()
     end
   }
-  use "lervag/vimtex"
+  use {
+    "lervag/vimtex",
+    config = require("plugins.vimtex")
+  }
   use "JuliaEditorSupport/julia-vim"
   use {
     "vimwiki/vimwiki",
     config = require("plugins.vimwiki")
+  }
+  use "potamides/pantran.nvim"
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = require('plugins.nullls')
   }
 
   if packer_bootstrap then

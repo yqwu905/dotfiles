@@ -69,7 +69,6 @@ vim.g.clipboard = {
   },
   cache_enabled = 0,
 }
-vim.g.vimtex_fold_enabled=true
 
 vim.g.python3_host_prog = '/usr/sbin/python'
 
