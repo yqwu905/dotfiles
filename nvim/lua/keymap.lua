@@ -110,8 +110,8 @@ wk.register({
   },
   t = {
     name = "+term",
-    w = { "<cmd>lua __fterm_wolfram()<cr>", "wolfram" },
-    t = { "<cmd>lua __fterm_btop()<cr>", "top" },
+    t = { "<cmd>lua __fterm_ft()<cr>", "term"},
+    b = { "<cmd>lua __fterm_btop()<cr>", "top" },
     j = { "<cmd>lua __fterm_julia()<cr>", "julia" },
     p = { "<cmd>lua __fterm_python()<cr>", "python" },
   },

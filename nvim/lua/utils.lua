@@ -114,15 +114,30 @@ _G.AsyncRunCode = function()
   end
 end
 
+_G.fterm_ft = ""
 local fterm = require("FTerm")
-local wolfram_term = fterm:new({ ft = "fterm_wolfram", cmd = "wolframscript" })
 local btop_term = fterm:new({ ft = "fterm_btop", cmd = "btop" })
 local julia_term = fterm:new({ ft = "fterm_julia", cmd = "julia" })
 local python_term = fterm:new({ ft = "fterm_python", cmd = "ipython" })
 
-_G.__fterm_wolfram = function()
-  wolfram_term:toggle()
+_G.__fterm_ft = function ()
+  if vim.bo.filetype == "julia" or fterm_ft == "julia" then
+    julia_term:toggle()
+    if fterm_ft == "" then
+      fterm_ft = "julia"
+    else
+      fterm_ft = ""
+    end
+  elseif vim.bo.filetype == "python" or fterm_ft == "python" then
+    python_term:toggle()
+    if fterm_ft == "" then
+      fterm_ft = "python"
+    else
+      fterm_ft = ""
+    end
+  end
 end
+
 _G.__fterm_btop = function()
   btop_term:toggle()
 end
