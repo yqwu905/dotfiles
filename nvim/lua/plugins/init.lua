@@ -84,7 +84,6 @@ return require('packer').startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     config = require('plugins.indent-blankline'),
   }
-  use "liuchengxu/vista.vim"
   use {
     "nvim-lualine/lualine.nvim",
     config = require('plugins.lualine'),
@@ -97,11 +96,6 @@ return require('packer').startup(function(use)
     "goolord/alpha-nvim",
     config = require('plugins.alpha')
   }
-  use "Pocco81/TrueZen.nvim"
-  use {
-    "stevearc/qf_helper.nvim",
-    config = require('plugins.qf_helper'),
-  }
 
   -- LSP
   use {
@@ -110,6 +104,7 @@ return require('packer').startup(function(use)
   }
   use "ray-x/lsp_signature.nvim"
   use "williamboman/nvim-lsp-installer"
+  use "liuchengxu/vista.vim"
 
   -- Completion
   use {
@@ -131,6 +126,7 @@ return require('packer').startup(function(use)
   }
   use "nvim-telescope/telescope-rg.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
+  use "ElPiloto/telescope-vimwiki.nvim"
 
   -- Git
   use "sindrets/diffview.nvim"
@@ -139,7 +135,6 @@ return require('packer').startup(function(use)
     "lewis6991/gitsigns.nvim",
     config = require('plugins.gitsigns'),
   }
-  use "ElPiloto/telescope-vimwiki.nvim"
 
   -- Specific Language
   use {
@@ -157,7 +152,14 @@ return require('packer').startup(function(use)
     "vimwiki/vimwiki",
     config = require("plugins.vimwiki")
   }
+
+  -- Tools
   use "potamides/pantran.nvim"
+  use {
+    "stevearc/qf_helper.nvim",
+    config = require('plugins.qf_helper'),
+  }
+  use "Pocco81/TrueZen.nvim"
 
   if packer_bootstrap then
     require('packer').sync()
