@@ -102,7 +102,7 @@ wk.register({
       l = { "<cmd>lua GetInkscapeFileList()<cr>", "list" },
     },
     c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
-    s = { "<cmd>Vista<cr>", "taglist" },
+    s = { "<cmd>SymbolsOutline<cr>", "taglist" },
     p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
     w = { "<cmd>lua SyncVimWikiGitRepo()<cr>", "sync vimwiki" },
     z = { "<cmd>TZAtaraxis<cr>", "zen mode" },

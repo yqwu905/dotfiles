@@ -84,6 +84,9 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting sudo)
 
 source $ZSH/oh-my-zsh.sh
 
+[[ -s /home/yqwu/.autojump/etc/profile.d/autojump.sh ]] && source /home/yqwu/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -110,7 +113,6 @@ export EDITOR='nvim'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /opt/anaconda/bin/activate root
 # source /usr/share/nvm/init-nvm.sh
 
 export WIN_IP=`cat /etc/resolv.conf | grep nameserver | awk '{print $2}'`
@@ -135,8 +137,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/julia
 alias luamake=/home/yqwu/tools/lua-language-server/3rd/luamake/luamake
 
 export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-
-eval $(thefuck --alias)
 
 alias ls=exa
 alias du=dust

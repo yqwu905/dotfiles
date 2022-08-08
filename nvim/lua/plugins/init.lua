@@ -104,7 +104,11 @@ return require('packer').startup(function(use)
   }
   use "ray-x/lsp_signature.nvim"
   use "williamboman/nvim-lsp-installer"
-  use "liuchengxu/vista.vim"
+  use {
+    "simrat39/symbols-outline.nvim",
+    after = "nvim-treesitter",
+    config = require('plugins.symbols-outline')
+  }
 
   -- Completion
   use {
