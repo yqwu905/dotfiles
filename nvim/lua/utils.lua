@@ -107,8 +107,7 @@ _G.AsyncRunCode = function()
   elseif vim.bo.filetype == "julia" then
     vim.cmd("AsyncRun -mode=term -pos=bottom julia " .. path)
   elseif vim.bo.filetype == "tex" then
-    require("notify")("Compling latex file.")
-    vim.cmd("AsyncRun latexmk -xelatex " .. path)
+    vim.cmd("VimtexCompile")
   elseif vim.bo.filetype == "lua" then
     vim.cmd("AsyncRun -mode=term -pos=bottom lua " .. path)
   end
