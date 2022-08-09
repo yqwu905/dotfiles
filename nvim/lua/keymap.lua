@@ -30,11 +30,6 @@ wk.register({
   ["7"] = { "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", "buffer 7" },
   ["8"] = { "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", "buffer 8" },
   ["9"] = { "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", "buffer 9" },
-  c = {
-    name = "+comments",
-    c = { "<cmd>Dox<cr>", "dox function" },
-    f = { "<cmd>DoxAuthor<cr>", "dox file" },
-  },
   e = {
     name = "+enter",
     c = { "<cmd>e $MYVIMRC | :cd %:p:h <CR>", "nvim config" }
@@ -105,7 +100,6 @@ wk.register({
     s = { "<cmd>SymbolsOutline<cr>", "taglist" },
     p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
     w = { "<cmd>lua SyncVimWikiGitRepo()<cr>", "sync vimwiki" },
-    z = { "<cmd>TZAtaraxis<cr>", "zen mode" },
   },
   t = {
     name = "+term",

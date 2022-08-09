@@ -77,7 +77,6 @@ return require('packer').startup(function(use)
   use "andymass/vim-matchup"
   use "tpope/vim-surround"
   use "numToStr/Comment.nvim"
-  use "vim-scripts/DoxygenToolkit.vim"
 
   -- UI
   use {
@@ -130,10 +129,8 @@ return require('packer').startup(function(use)
   }
   use "nvim-telescope/telescope-rg.nvim"
   use "nvim-telescope/telescope-ui-select.nvim"
-  use "ElPiloto/telescope-vimwiki.nvim"
 
   -- Git
-  use "sindrets/diffview.nvim"
   use "TimUntersberger/neogit"
   use {
     "lewis6991/gitsigns.nvim",
@@ -158,7 +155,6 @@ return require('packer').startup(function(use)
   }
 
   -- Tools
-  use "potamides/pantran.nvim"
   use "Pocco81/TrueZen.nvim"
   use {
     "folke/trouble.nvim",
