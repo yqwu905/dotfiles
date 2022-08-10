@@ -38,12 +38,17 @@ return require('packer').startup(function(use)
   use "lewis6991/impatient.nvim"
   use "nvim-lua/popup.nvim"
   use "nvim-lua/plenary.nvim"
-  use "rcarriga/nvim-notify"
+  use {
+    "rcarriga/nvim-notify",
+    config = require("plugins.notify")
+  }
   use "kyazdani42/nvim-web-devicons"
   use "nathom/filetype.nvim"
   use {
     "kyazdani42/nvim-tree.lua",
+    cmd = "NvimTreeToggle",
     config = require("plugins.nvim_tree"),
+    requires = "kyazdani42/nvim-web-devicons",
   }
   use "folke/which-key.nvim"
   use "hrsh7th/vim-eft"
@@ -81,6 +86,7 @@ return require('packer').startup(function(use)
   -- UI
   use {
     "lukas-reineke/indent-blankline.nvim",
+    event = 'BufRead',
     config = require('plugins.indent-blankline'),
   }
   use {
@@ -125,16 +131,27 @@ return require('packer').startup(function(use)
   --Telescope
   use {
     "nvim-telescope/telescope.nvim",
-    config = require("plugins.telescope")
+    config = require("plugins.telescope"),
+    cmd = "Telescope"
   }
-  use "nvim-telescope/telescope-rg.nvim"
-  use "nvim-telescope/telescope-ui-select.nvim"
+  use {
+    "nvim-telescope/telescope-rg.nvim",
+    after = 'telescope.nvim',
+  }
+  use {
+    "nvim-telescope/telescope-ui-select.nvim",
+    after = 'telescope.nvim',
+  }
 
   -- Git
-  use "TimUntersberger/neogit"
+  use {
+    "TimUntersberger/neogit",
+    cmd = "Neogit",
+  }
   use {
     "lewis6991/gitsigns.nvim",
     config = require('plugins.gitsigns'),
+    cmd = 'Gitsigns',
   }
 
   -- Specific Language
@@ -158,7 +175,8 @@ return require('packer').startup(function(use)
   use "Pocco81/TrueZen.nvim"
   use {
     "folke/trouble.nvim",
-    config = require("plugins.trouble")
+    config = require("plugins.trouble"),
+    cmd = "TroubleToggle",
   }
 
   if packer_bootstrap then

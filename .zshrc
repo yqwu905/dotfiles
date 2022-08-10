@@ -131,6 +131,7 @@ export PATH=$PATH:/usr/local/texlive/2021/bin/x86_64-linux
 export PATH=$PATH:/home/yqwu/.local/bin
 export PATH=$PATH:'/mnt/c/Program Files/Inkscape/bin'
 export VCPKG_ROOT=/home/yqwu/tools/vcpkg
+export GOPATH='.go'
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/julia
 
@@ -148,5 +149,3 @@ export HISTFILE=~/.local/.zsh_history
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
-export BROWSER=firefox.exe
