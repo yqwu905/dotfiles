@@ -43,7 +43,10 @@ return require('packer').startup(function(use)
     config = require("plugins.notify")
   }
   use "kyazdani42/nvim-web-devicons"
-  use "nathom/filetype.nvim"
+  use {
+    "nathom/filetype.nvim",
+    config = require('plugins.filetype')
+  }
   use {
     "kyazdani42/nvim-tree.lua",
     cmd = "NvimTreeToggle",
