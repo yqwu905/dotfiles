@@ -172,7 +172,6 @@ return require('packer').startup(function(use)
   }
 
   -- Tools
-  use "Pocco81/TrueZen.nvim"
   use {
     "folke/trouble.nvim",
     config = require("plugins.trouble"),
