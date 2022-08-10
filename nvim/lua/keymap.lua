@@ -121,7 +121,7 @@ wk.register({
     q = {"<cmd>TroubleToggle quickfix<cr>", "quickfix"},
     l = {"<cmd>TroubleToggle loclist<cr>", "loclist"},
     n = {"<cmd>lua require('trouble').next({jump = true})", "next"},
-    n = {"<cmd>lua require('trouble').previous({jump = true})", "prev"}
+    p = {"<cmd>lua require('trouble').previous({jump = true})", "prev"}
   }
 }, opts)
 
