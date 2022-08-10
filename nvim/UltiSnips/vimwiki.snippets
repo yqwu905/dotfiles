@@ -479,3 +479,7 @@ snippet detail "Disclosure"
   ${1:<summary>${2}</summary>}$0
 </details>
 endsnippet
+
+snippet "tb([1-9])([1-9])" "Table" br
+`!p vim.eval(f"vimwiki#tbl#create({match.group(1)}, {match.group(2)})")`
+endsnippet
