@@ -111,13 +111,23 @@ _G.AsyncRunCode = function()
   end
 end
 
+_G.GetVimwikiTodo = function(complete)
+  vimwiki_dir = vim.g.vimwiki_list[1]['path'] .. '/*/*'
+  if complete then
+    vim.cmd("vimgrep /- \\[x\\]/ " .. vimwiki_dir)
+  else
+    vim.cmd("vimgrep /- \\[ \\]/ " .. vimwiki_dir)
+  end
+  vim.cmd("TroubleToggle quickfix")
+end
+
 _G.fterm_ft = ""
 local fterm = require("FTerm")
 local btop_term = fterm:new({ ft = "fterm_btop", cmd = "btop" })
 local julia_term = fterm:new({ ft = "fterm_julia", cmd = "julia" })
 local python_term = fterm:new({ ft = "fterm_python", cmd = "ipython" })
 
-_G.__fterm_ft = function ()
+_G.__fterm_ft = function()
   if vim.bo.filetype == "julia" or fterm_ft == "julia" then
     julia_term:toggle()
     if fterm_ft == "" then
