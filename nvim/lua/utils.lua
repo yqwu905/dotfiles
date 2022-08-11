@@ -291,7 +291,7 @@ function _G.GetInkscapeFileList()
   vim.ui.select(svg_files, {
     prompt = 'Select one inkscape file'
   }, function(choice)
-    OpenInkscapeFile(string.sub(choice, 1, -8) .. "svg")
+    OpenInkscapeFile(string.sub(choice, 1, -4) .. "svg")
   end)
 end
 
