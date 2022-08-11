@@ -6,7 +6,7 @@ local opts = {
   prefix = "<leader>",
   buffer = nil,
   silent = true,
-  noremap = true,
+  noremap = false,
   nowait = false,
 }
 
@@ -111,6 +111,11 @@ wk.register({
   w = {
     name = "+vimwiki",
     f = { "<cmd>Telescope vimwiki<cr>", "find file" },
+    t = {
+      name = "+todo",
+      c = { "<cmd>lua GetVimwikiTodo(true)<cr>", "complete"},
+      n = { "<cmd>lua GetVimwikiTodo(false)<cr>", "not complete"}
+    },
     g = { "<cmd>Telescope vimwiki live_grep<cr>", "livegrep" },
   },
   x = {
