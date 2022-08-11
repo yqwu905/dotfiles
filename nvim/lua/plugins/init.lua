@@ -135,6 +135,9 @@ return require('packer').startup(function(use)
   --Telescope
   use {
     "nvim-telescope/telescope.nvim",
+    requires = {
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
     config = require("plugins.telescope"),
     cmd = "Telescope"
   }
@@ -145,6 +148,10 @@ return require('packer').startup(function(use)
   use {
     "nvim-telescope/telescope-ui-select.nvim",
     after = 'telescope.nvim',
+  }
+  use {
+    "ElPiloto/telescope-vimwiki.nvim",
+    after = 'telescope.nvim'
   }
 
   -- Git
