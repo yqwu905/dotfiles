@@ -84,9 +84,9 @@ wk.register({
   },
   q = {
     name = "+quit",
-    q = {"<cmd>wqa<cr>", "quit"},
-    f = {"<cmd>qa!<cr>", "force quit"},
-    x = {"<cmd>lua close_buffer()<cr>", "close buffer"}
+    q = { "<cmd>wqa<cr>", "quit" },
+    f = { "<cmd>qa!<cr>", "force quit" },
+    x = { "<cmd>lua close_buffer()<cr>", "close buffer" }
   },
   u = {
     name = "+utils",
@@ -103,7 +103,7 @@ wk.register({
   },
   t = {
     name = "+term",
-    t = { "<cmd>lua __fterm_ft()<cr>", "term"},
+    t = { "<cmd>lua __fterm_ft()<cr>", "term" },
     b = { "<cmd>lua __fterm_btop()<cr>", "top" },
     j = { "<cmd>lua __fterm_julia()<cr>", "julia" },
     p = { "<cmd>lua __fterm_python()<cr>", "python" },
@@ -113,20 +113,20 @@ wk.register({
     f = { "<cmd>Telescope vimwiki<cr>", "find file" },
     t = {
       name = "+todo",
-      c = { "<cmd>lua GetVimwikiTodo(true)<cr>", "complete"},
-      n = { "<cmd>lua GetVimwikiTodo(false)<cr>", "not complete"}
+      c = { "<cmd>lua GetVimwikiTodo(true)<cr>", "complete" },
+      n = { "<cmd>lua GetVimwikiTodo(false)<cr>", "not complete" }
     },
     g = { "<cmd>Telescope vimwiki live_grep<cr>", "livegrep" },
   },
   x = {
     name = "+trouble",
-    x = {"<cmd>TroubleToggle<cr>", "toggle"},
-    w = {"<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace"},
-    d = {"<cmd>TroubleToggle document_diagnostics<cr>", "document"},
-    q = {"<cmd>TroubleToggle quickfix<cr>", "quickfix"},
-    l = {"<cmd>TroubleToggle loclist<cr>", "loclist"},
-    n = {"<cmd>lua require('trouble').next({jump = true})", "next"},
-    p = {"<cmd>lua require('trouble').previous({jump = true})", "prev"}
+    x = { "<cmd>TroubleToggle<cr>", "toggle" },
+    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
+    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
+    q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+    l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+    n = { "<cmd>lua require('trouble').next({jump = true})", "next" },
+    p = { "<cmd>lua require('trouble').previous({jump = true})", "prev" }
   }
 }, opts)
 
