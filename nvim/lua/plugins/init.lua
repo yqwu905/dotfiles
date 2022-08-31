@@ -187,6 +187,10 @@ return require('packer').startup(function(use)
     config = require("plugins.trouble"),
     cmd = "TroubleToggle",
   }
+  use {
+    "hkupty/iron.nvim",
+    config = require("plugins.iron")
+  }
 
   if packer_bootstrap then
     require('packer').sync()
