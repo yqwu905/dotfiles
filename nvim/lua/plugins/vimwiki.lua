@@ -1,4 +1,5 @@
 return function()
+  vim.g.vimwiki_folding = 'list'
   vim.g.vimwiki_list = {
     {
       path = "~/repos/vimwiki",
