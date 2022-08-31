@@ -41,7 +41,7 @@ wk.register({
     h = { "<cmd>Telescope help_tags<cr>", "help tags" },
     o = { "<cmd>Telescope oldfiles<cr>", "old files" },
     w = { "<cmd>Telescope live_grep<cr>", "live grep" },
-    s = { "<cmd>lua DynamicWorkspaceSymbol()<CR>", "workspace symbols" },
+    s = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "workspace symbols" },
     t = { "<cmd>Telescope<CR>", "telescope" },
   },
   g = {
@@ -74,6 +74,12 @@ wk.register({
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "format" },
     a = { "<cmd>lua CodeAction()<cr>", "code actions" },
     d = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "diagnostics" },
+  },
+  s = {
+    name = "+repl",
+    l = { "<cmd>lua require('iron.core').send_line()<cr>", "send line" },
+    f = { " <cmd>lua require('iron.core').send(nil, iron_escape_python(vim.api.nvim_buf_get_lines(0, 0, -1, false)))<cr>", "send file" },
+    ["<cr>"] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>", "send cr" },
   },
   p = {
     name = "+packer",
@@ -132,6 +138,7 @@ wk.register({
 
 wk.register({
   ["/"] = { "<esc><cmd> :lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "toggle comment" },
+  s = { "<cmd>lua require('iron.core').send(nil, iron_escape_python(get_visual_selection()))<cr>", "send visual" }
 }, vopts)
 
 vim.cmd [[
