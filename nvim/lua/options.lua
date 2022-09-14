@@ -1,17 +1,5 @@
 local options = {
   backup = false, -- creates a backup file
-  clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-      ["+"] = "win32yank.exe -i --crlf",
-      ["*"] = "win32yank.exe -i --crlf",
-    },
-    paste = {
-      ["+"] = "win32yank.exe -o --lf",
-      ["*"] = "win32yank.exe -o --lf",
-    },
-    cache_enabled = 0,
-  },
   shell = "zsh",
   cmdheight = 2, -- more space in the neovim command line for displaying messages
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
@@ -56,21 +44,8 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd('set clipboard+=unnamedplus')
-vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlf",
-  },
-  paste = {
-    ["+"] = "win32yank.exe -o --lf",
-    ["*"] = "win32yank.exe -o --lf",
-  },
-  cache_enabled = 0,
-}
-
-vim.g.python3_host_prog = '/usr/sbin/python'
+vim.cmd("set clipboard+=unnamedplus")
+vim.g.python3_host_prog = '/usr/bin/python'
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
