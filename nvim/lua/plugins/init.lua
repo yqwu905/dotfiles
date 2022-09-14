@@ -85,7 +85,12 @@ return require('packer').startup(function(use)
   }
   use "andymass/vim-matchup"
   use "tpope/vim-surround"
-  use "numToStr/Comment.nvim"
+  use {
+    "numToStr/Comment.nvim",
+    config = function()
+      require('Comment').setup()
+    end
+  }
 
   -- UI
   use {
