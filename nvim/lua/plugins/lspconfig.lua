@@ -1,5 +1,5 @@
 return function()
-  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls" }
+  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls", "sumneko_lua" }
   local manually_install_servers = { "clangd" }
   require('nvim-lsp-installer').setup({
     ensure_installed = servers,
