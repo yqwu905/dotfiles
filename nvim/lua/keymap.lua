@@ -20,7 +20,7 @@ local vopts = {
 }
 
 wk.register({
-  ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<cr>", "toggle comment" },
+  ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise()<cr>", "toggle comment" },
   ["1"] = { "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", "buffer 1" },
   ["2"] = { "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", "buffer 2" },
   ["3"] = { "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", "buffer 3" },
@@ -137,7 +137,7 @@ wk.register({
 }, opts)
 
 wk.register({
-  ["/"] = { "<esc><cmd> :lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "toggle comment" },
+  ["/"] = { "<esc><cmd> :lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "toggle comment" },
   s = { "<cmd>lua require('iron.core').send(nil, iron_escape_python(get_visual_selection()))<cr>", "send visual" }
 }, vopts)
 
