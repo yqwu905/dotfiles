@@ -66,13 +66,6 @@ snippet eq "Equation Environment" w
 \end{equation}
 endsnippet
 
-context "math()"
-snippet \\{ "Big Bracket"
-\left\\{
-	$0
-\right.
-endsnippet
-
 snippet bf "Bold" wA
 {\bf $1}$0
 endsnippet
@@ -499,4 +492,16 @@ snippet item "Itemize" b
 \end{itemize}
 endsnippet
 
+priority 1000
+snippet math "mathematica block" w
+math $1 math$0
+endsnippet
 
+priority 10000
+snippet 'math(.*)math' "evaluate mathematica" wr
+`!p
+import subprocess
+code = 'ToString[' + match.group(1) + ', TeXForm]'
+snip.rv = subprocess.check_output(['wolframscript', '-code', code])
+`
+endsnippet

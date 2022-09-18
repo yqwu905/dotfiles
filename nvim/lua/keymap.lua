@@ -97,11 +97,6 @@ wk.register({
   u = {
     name = "+utils",
     r = { "<cmd>lua AsyncRunCode()<cr>", "run" },
-    i = {
-      name = "+inkscape",
-      n = { "<cmd>lua NewInkscapeFile()<cr>", "new" },
-      l = { "<cmd>lua GetInkscapeFileList()<cr>", "list" },
-    },
     c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
     s = { "<cmd>SymbolsOutline<cr>", "taglist" },
     p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
@@ -183,6 +178,9 @@ noremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 inoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 vnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 tnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
+
+inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 
 tnoremap <Esc> <C-\><C-n>
 ]]
