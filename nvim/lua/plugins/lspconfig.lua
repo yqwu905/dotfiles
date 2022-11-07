@@ -1,6 +1,10 @@
 return function()
-  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls", "sumneko_lua" }
+  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls", "sumneko_lua", "tsserver", "taplo"}
+  local manually_config_servers = {}
   local manually_install_servers = { "clangd" }
+  for i = 1, #manually_config_servers do
+    servers[#servers + 1] = manually_config_servers[i]
+  end
   require('nvim-lsp-installer').setup({
     ensure_installed = servers,
     -- automatic_installation = true,
@@ -69,6 +73,7 @@ return function()
   end
 
   lspconfig['julials'].setup({
+    cmd = { "julia", "-e", "using LanguageServer; runserver()" },
     on_attach = on_attach
   })
 
@@ -114,14 +119,4 @@ return function()
       }
     }
   })
-
-  -- configs.lsp_wl = {
-  --   default_config = {
-  --     cmd = { "nc", "localhost", "6536" },
-  --     filetypes = { "mma", "wl" },
-  --     root_dir = util.path.dirname,
-  --   },
-  -- }
-  --
-  -- lspconfig['lsp-wl'].setup({})
 end

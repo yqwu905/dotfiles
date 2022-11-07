@@ -69,6 +69,10 @@ return require('packer').startup(function(use)
     as = "catppuccin",
     config = require('plugins.catppuccin')
   }
+  use {
+    "folke/tokyonight.nvim",
+    config = function() vim.cmd[[colorscheme tokyonight-night]] end,
+  }
 
   -- Treesitter
   use {
@@ -154,10 +158,6 @@ return require('packer').startup(function(use)
     "nvim-telescope/telescope-ui-select.nvim",
     after = 'telescope.nvim',
   }
-  use {
-    "ElPiloto/telescope-vimwiki.nvim",
-    after = 'telescope.nvim'
-  }
 
   -- Git
   use {
@@ -182,15 +182,28 @@ return require('packer').startup(function(use)
   }
   use "JuliaEditorSupport/julia-vim"
   use {
-    "vimwiki/vimwiki",
-    config = require("plugins.vimwiki")
+    "quarto-dev/quarto-nvim",
+    config = require("plugins.quarto")
   }
+
+  -- DAP
+  use {
+    "mfussenegger/nvim-dap", -- DAP kernel.
+    config = require("plugins.dap")
+  }
+  use "rcarriga/nvim-dap-ui" -- TUI for DAP
 
   -- Tools
   use {
-    "folke/trouble.nvim",
+    "folke/trouble.nvim", -- Better quickfix and loclist.
     config = require("plugins.trouble"),
     cmd = "TroubleToggle",
+  }
+  use "rlue/vim-barbaric" -- Auto IME Switch
+  use {
+    "edluffy/hologram.nvim", -- Experimental! Display image in terminal.
+    config = function() require("hologram").setup({ auto_display = true }) end,
+    ft = { 'markdown', 'vimwiki' }
   }
 
   if packer_bootstrap then

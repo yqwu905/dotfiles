@@ -1,38 +1,3 @@
-function get_visual_selection()
-  local s_start = vim.fn.getpos("'<")
-  local s_end = vim.fn.getpos("'>")
-  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
-  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
-  lines[1] = string.sub(lines[1], s_start[3], -1)
-  if n_lines == 1 then
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
-  else
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
-  end
-  return lines
-end
-
-function escape_inner_blankline(input)
-  local output = {}
-  for k, line in ipairs(input) do
-    if #line == 0 and k ~= 1 and #input[k - 1] ~= 0 then
-      table.insert(output, "# ")
-      -- input[k - 1] = input[k - 1] .. '\\'
-    else
-      table.insert(output, line)
-    end
-  end
-  return output
-end
-
-function iron_escape_python(input)
-  if vim.bo.filetype == 'python' then
-    return escape_inner_blankline(input)
-  else
-    return input
-  end
-end
-
 _G.close_buffer = function(force)
   local opts = {
     next = "cycle", -- how to retrieve the next buffer
@@ -130,7 +95,11 @@ _G.AsyncRunCode = function()
     local handle = io.popen('sed -n "s/^.*add_executable(\\(\\S*\\).*$/\\1/p" CMakeLists.txt')
     local executable = handle:read("*a")
     handle:close()
-    vim.cmd("AsyncRun -mode=term -pos=bottom cd cmake_build && cmake -G Ninja .. && ninja && ./" .. executable)
+    first_breakline_idx,_ = string.find(executable, "\n")
+    if first_breakline_idx~=nil then
+      executable = executable:sub(1, first_breakline_idx)
+    end
+    vim.cmd(string.format("AsyncRun -mode=term -pos=bottom cd cmake_build && cmake -G Ninja .. && ninja && ./%s", executable))
   elseif vim.bo.filetype == "cpp" then
     vim.cmd("AsyncRun -mode=term -pos=bottom g++ -std=c++11 -o a.out " .. vim.fn.expand("%") .. "&&./a.out")
   elseif vim.bo.filetype == "c" then
@@ -144,16 +113,6 @@ _G.AsyncRunCode = function()
   elseif vim.bo.filetype == "tex" then
     vim.cmd("VimtexCompile")
   end
-end
-
-_G.GetVimwikiTodo = function(complete)
-  vimwiki_dir = vim.g.vimwiki_list[1]['path'] .. '/**/*'
-  if complete then
-    vim.cmd("vimgrep /- \\[x\\]/ " .. vimwiki_dir)
-  else
-    vim.cmd("vimgrep /- \\[ \\]/ " .. vimwiki_dir)
-  end
-  vim.cmd("TroubleToggle quickfix")
 end
 
 _G.fterm_ft = ""
@@ -199,32 +158,14 @@ _G.SwitchConcealLevel = function()
   end
 end
 
-_G.ToggleDiffView = function(isdir)
-  if isdir then
-    if Diffviewopen == 0 then
-      vim.cmd("DiffviewFileHistory .")
-      Diffviewopen = 1
-    else
-      vim.cmd("DiffviewClose")
-      Diffviewopen = 0
-    end
-  else
-    if Diffviewopen == 0 then
-      vim.cmd("DiffviewFileHistory")
-      Diffviewopen = 1
-    else
-      vim.cmd("DiffviewClose")
-      Diffviewopen = 0
-    end
-  end
-end
-
 _G.MarpPreviewOn = 0
 _G.ToggleMarkdownPreview = function()
   local marp_path = vim.api.nvim_buf_get_name(0)
   local extension = marp_path:match("^.+%.(.+)$")
   if extension == "md" then
     vim.cmd("MarkdownPreview")
+  elseif extension == "qmd" then
+    vim.cmd("QuartoPreview")
   elseif extension == "marp" then
     if MarpPreviewOn == 0 then
       require("notify")("Start MARP Preview")
@@ -274,11 +215,6 @@ local function docommit(win)
   os.execute(string.format("git commit -m '%s'", commit_message))
 end
 
-_G.IronVisualSend = function()
-  -- require('iron.core').send(nil, get_visual_selection())
-  vim.notify(get_visual_selection())
-end
-
 local function commit()
   local opts = {
     relative = "editor",
@@ -303,10 +239,4 @@ _G.Rename = { rename = rename, dorename = dorename }
 
 _G.CodeAction = function()
   vim.lsp.buf.code_action()
-end
-
-_G.SyncVimWikiGitRepo = function()
-  vim.cmd(
-    'AsyncRun -mode=term -pos=bottom cd ~/repos/vimwiki && git add * && git commit -m "Update by vim" && git push'
-  )
 end

@@ -42,7 +42,7 @@ return function()
       -- Disable sections and component separators
       component_separators = '',
       section_separators = '',
-      theme = 'catppuccin',
+      theme = 'tokyonight',
     },
     sections = {
       -- these are to remove the defaults

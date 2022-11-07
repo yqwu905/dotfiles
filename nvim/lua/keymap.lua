@@ -30,6 +30,14 @@ wk.register({
   ["7"] = { "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", "buffer 7" },
   ["8"] = { "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", "buffer 8" },
   ["9"] = { "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", "buffer 9" },
+  d = {
+    name = "+debug",
+    b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "toggle breakpoint" },
+    c = { "<cmd>lua require'dap'.continue()<cr>", "continue" },
+    n = { "<cmd>lua require'dap'.step_over()<cr>", "step over" },
+    ["N"] = { "<cmd>lua require'dap'.step_out()<cr>", "step out" },
+    i = { "<cmd>lua require'dap'.step_into()<cr>", "step into" },
+  },
   e = {
     name = "+enter",
     c = { "<cmd>e $MYVIMRC | :cd %:p:h <CR>", "nvim config" }
@@ -71,14 +79,15 @@ wk.register({
       s = { "<cmd>LspStart<cr>", "LSP Start" },
     },
     r = { "<cmd>lua Rename.rename()<cr>", "rename" },
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "format" },
+    f = { "<cmd>lua vim.lsp.buf.format({async=true})<cr>", "format" },
     a = { "<cmd>lua CodeAction()<cr>", "code actions" },
     d = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "diagnostics" },
   },
   s = {
     name = "+repl",
     l = { "<cmd>lua require('iron.core').send_line()<cr>", "send line" },
-    f = { " <cmd>lua require('iron.core').send(nil, iron_escape_python(vim.api.nvim_buf_get_lines(0, 0, -1, false)))<cr>", "send file" },
+    f = { " <cmd>lua require('iron.core').send(nil, iron_escape_python(vim.api.nvim_buf_get_lines(0, 0, -1, false)))<cr>",
+      "send file" },
     ["<cr>"] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>", "send cr" },
   },
   p = {
@@ -100,7 +109,6 @@ wk.register({
     c = { "<cmd>lua SwitchConcealLevel()<cr>", "switch conceallevel" },
     s = { "<cmd>SymbolsOutline<cr>", "taglist" },
     p = { "<cmd>lua ToggleMarkdownPreview()<cr>", "preview" },
-    w = { "<cmd>lua SyncVimWikiGitRepo()<cr>", "sync vimwiki" },
   },
   t = {
     name = "+term",
@@ -108,16 +116,6 @@ wk.register({
     b = { "<cmd>lua __fterm_btop()<cr>", "top" },
     j = { "<cmd>lua __fterm_julia()<cr>", "julia" },
     p = { "<cmd>lua __fterm_python()<cr>", "python" },
-  },
-  w = {
-    name = "+vimwiki",
-    f = { "<cmd>Telescope vimwiki<cr>", "find file" },
-    t = {
-      name = "+todo",
-      c = { "<cmd>lua GetVimwikiTodo(true)<cr>", "complete" },
-      n = { "<cmd>lua GetVimwikiTodo(false)<cr>", "not complete" }
-    },
-    g = { "<cmd>Telescope vimwiki live_grep<cr>", "livegrep" },
   },
   x = {
     name = "+trouble",

@@ -62,7 +62,7 @@ return function()
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-Tab>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
@@ -86,12 +86,11 @@ return function()
       end,
     },
     sources = {
-      { name = "nvim_lsp" },
+      { name = "nvim_lsp"},
       { name = "ultisnips" },
       { name = "buffer" },
       { name = "nvim_lua" },
       { name = "path" },
-      { name = "cmdline" },
     },
     window = {
       completion = cmp.config.window.bordered(),

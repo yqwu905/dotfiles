@@ -1,6 +1,6 @@
 return function()
   vim.g.catppuccin_flavour = "mocha"
-  vim.cmd("colorscheme catppuccin")
+  -- vim.cmd("colorscheme catppuccin")
   vim.cmd [[
   highlight DiagnosticHint cterm=NONE ctermbg=0 ctermfg=16 gui=NONE guifg=#94E2D5 guibg=NONE
   highlight DiagnosticInfo cterm=NONE ctermbg=0 ctermfg=16 gui=NONE guifg=#89DCEB guibg=NONE
@@ -92,7 +92,7 @@ return function()
       symbols_outline = true,
       mini = false,
       aerial = false,
-      vimwiki = true,
+      vimwiki = false,
       beacon = true,
       navic = false,
       overseer = false,

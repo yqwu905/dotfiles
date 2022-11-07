@@ -53,3 +53,8 @@ vim.cmd [[set iskeyword+=-]]
 vim.cmd [[
   syntax on
 ]]
+
+vim.cmd[[
+set colorcolumn=80
+hi ColorColumn guifg=grey
+]]
