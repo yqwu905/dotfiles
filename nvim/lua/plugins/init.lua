@@ -1,19 +1,11 @@
 local fn = vim.fn
 
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  print("Download packer.nvim")
+if fn.empty(fn.glob(install_path)) > 0 then print("Download packer.nvim")
   packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
     install_path })
   vim.cmd [[packadd packer.nvim]]
 end
-
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
 
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -65,13 +57,8 @@ return require('packer').startup(function(use)
 
   -- Colorscheme
   use {
-    "catppuccin/nvim",
-    as = "catppuccin",
-    config = require('plugins.catppuccin')
-  }
-  use {
     "folke/tokyonight.nvim",
-    config = function() vim.cmd[[colorscheme tokyonight-night]] end,
+    config = function() vim.cmd [[colorscheme tokyonight-night]] end,
   }
 
   -- Treesitter
@@ -127,19 +114,34 @@ return require('packer').startup(function(use)
     after = "nvim-treesitter",
     config = require('plugins.symbols-outline')
   }
+  use 'glepnir/lspsaga.nvim'
 
   -- Completion
   use {
     "hrsh7th/nvim-cmp",
-    config = require('plugins.cmp')
+    config = require('plugins.cmp'),
   }
-  use "SirVer/ultisnips"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-cmdline"
-  use "hrsh7th/cmp-nvim-lua"
-  use "quangnguyen30192/cmp-nvim-ultisnips"
+  use {
+    "SirVer/ultisnips",
+  }
+  use {
+    "hrsh7th/cmp-nvim-lsp",
+  }
+  use {
+    "hrsh7th/cmp-buffer",
+  }
+  use {
+    "hrsh7th/cmp-path",
+  }
+  use {
+    "hrsh7th/cmp-cmdline",
+  }
+  use {
+    "hrsh7th/cmp-nvim-lua",
+  }
+  use {
+    "quangnguyen30192/cmp-nvim-ultisnips",
+  }
 
   --Telescope
   use {
@@ -174,11 +176,13 @@ return require('packer').startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function()
       vim.fn["mkdp#util#install"]()
-    end
+    end,
+    ft = { 'markdown' }
   }
   use {
     "lervag/vimtex",
-    config = require("plugins.vimtex")
+    config = require("plugins.vimtex"),
+    ft = { 'tex', 'markdown', 'latex' }
   }
   use "JuliaEditorSupport/julia-vim"
 
@@ -187,7 +191,9 @@ return require('packer').startup(function(use)
     "mfussenegger/nvim-dap", -- DAP kernel.
     config = require("plugins.dap")
   }
-  use "rcarriga/nvim-dap-ui" -- TUI for DAP
+  use {
+    "rcarriga/nvim-dap-ui",
+  } -- TUI for DAP
 
   -- Tools
   use {

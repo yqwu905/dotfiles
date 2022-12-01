@@ -1,5 +1,6 @@
 return function()
-  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls", "sumneko_lua", "tsserver", "taplo"}
+  local servers = { "pyright", "bashls", "cmake", "texlab", "jsonls",
+    "sumneko_lua", "tsserver", "taplo", "marksman" }
   local manually_config_servers = {}
   local manually_install_servers = { "clangd" }
   for i = 1, #manually_config_servers do
@@ -50,15 +51,20 @@ return function()
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    local status, saga = pcall(require, "lspsaga")
+    if status then
+      saga.init_lsp_saga({})
+      vim.keymap.set('n', 'gD', vim.lsp.buf.definition, bufopts)
+      vim.keymap.set('n', 'gd', "<cmd>Lspsaga lsp_finder<cr>", bufopts)
+      vim.keymap.set('n', 'gp', "<cmd>Lspsaga preview_definition<cr>", bufopts)
+      vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', bufopts)
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+      vim.keymap.set('n', '[e', "<cmd>Lspsaga diagnostic_jump_prev<cr>", bufopts)
+      vim.keymap.set('n', ']e', "<cmd>Lspsaga diagnostic_jump_next<cr>", bufopts)
+    end
   end
 
-  require("lsp_signature").setup()
+  -- require("lsp_signature").setup()
 
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
