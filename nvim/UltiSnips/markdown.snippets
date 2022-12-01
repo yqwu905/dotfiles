@@ -160,6 +160,11 @@ snippet "mcal" "mathcal" riA
 endsnippet
 
 context "math()"
+snippet "mbb" "mathbb" riA
+\mathbb{$1}$0
+endsnippet
+
+context "math()"
 priority 100
 snippet "([a-zA-Z])mcal" "mathcal" riA
 \mathcal{`!p snip.rv=match.group(1)`}
