@@ -181,10 +181,6 @@ return require('packer').startup(function(use)
     config = require("plugins.vimtex")
   }
   use "JuliaEditorSupport/julia-vim"
-  use {
-    "quarto-dev/quarto-nvim",
-    config = require("plugins.quarto")
-  }
 
   -- DAP
   use {

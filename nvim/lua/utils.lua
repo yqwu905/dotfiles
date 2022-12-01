@@ -160,19 +160,19 @@ end
 
 _G.MarpPreviewOn = 0
 _G.ToggleMarkdownPreview = function()
-  local marp_path = vim.api.nvim_buf_get_name(0)
-  local extension = marp_path:match("^.+%.(.+)$")
+  local md_path = vim.api.nvim_buf_get_name(0)
+  local extension = md_path:match("^.+%.(.+)$")
   if extension == "md" then
     vim.cmd("MarkdownPreview")
   elseif extension == "qmd" then
-    vim.cmd("QuartoPreview")
+    vim.cmd("AsyncRun -mode=term -pos=hide quarto preview " .. md_path)
   elseif extension == "marp" then
     if MarpPreviewOn == 0 then
       require("notify")("Start MARP Preview")
-      vim.cmd("AsyncRun marp -w " .. '"' .. marp_path .. '"')
+      vim.cmd("AsyncRun marp -w " .. '"' .. md_path .. '"')
       vim.cmd(
         ':silent exec "!firefox.exe \\"file://///wsl.localhost/Arch/'
-        .. marp_path:match("^(.+%.).+$")
+        .. md_path:match("^(.+%.).+$")
         .. 'html\\""'
       )
       MarpPreviewOn = 1
