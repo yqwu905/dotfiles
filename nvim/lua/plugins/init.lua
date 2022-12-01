@@ -205,6 +205,10 @@ return require('packer').startup(function(use)
     config = require("plugins.iron"),
     ft = { 'julia' }
   }
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function() require('colorizer').setup() end
+  }
 
   if packer_bootstrap then
     require('packer').sync()
