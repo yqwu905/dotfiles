@@ -51,6 +51,7 @@ wk.register({
     w = { "<cmd>Telescope live_grep<cr>", "live grep" },
     s = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "workspace symbols" },
     t = { "<cmd>Telescope<CR>", "telescope" },
+    ["/"] = { "<cmd>Telescope current_buffer_fuzzy_find<CR>", "current file" }
   },
   g = {
     name = "+git",
