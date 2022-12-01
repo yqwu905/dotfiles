@@ -87,8 +87,9 @@ wk.register({
   s = {
     name = "+repl",
     l = { "<cmd>lua require('iron.core').send_line()<cr>", "send line" },
-    f = { " <cmd>lua require('iron.core').send(nil, iron_escape_python(vim.api.nvim_buf_get_lines(0, 0, -1, false)))<cr>",
+    f = { "<cmd>lua require('iron.core').send(nil, vim.api.nvim_buf_get_lines(0, 0, -1, false))<cr>",
       "send file" },
+    s = { "<cmd>IronFocus<cr>", "focus repl" },
     ["<cr>"] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>", "send cr" },
   },
   p = {
@@ -132,7 +133,7 @@ wk.register({
 
 wk.register({
   ["/"] = { "<esc><cmd> :lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "toggle comment" },
-  s = { "<cmd>lua require('iron.core').send(nil, iron_escape_python(get_visual_selection()))<cr>", "send visual" }
+  s = { ":<C-u>lua require('iron.core').send(nil, get_visual_selection())<cr>", "send visual" }
 }, vopts)
 
 vim.cmd [[

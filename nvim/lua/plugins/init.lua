@@ -201,9 +201,9 @@ return require('packer').startup(function(use)
   }
   use "rlue/vim-barbaric" -- Auto IME Switch
   use {
-    "edluffy/hologram.nvim", -- Experimental! Display image in terminal.
-    config = function() require("hologram").setup({ auto_display = true }) end,
-    ft = { 'markdown', 'vimwiki' }
+    "hkupty/iron.nvim",
+    config = require("plugins.iron"),
+    ft = { 'julia' }
   }
 
   if packer_bootstrap then
