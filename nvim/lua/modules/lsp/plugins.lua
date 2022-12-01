@@ -1,0 +1,40 @@
+-- LSP relevant plugins.
+local plugin = require('core.pack').register_plugin
+local conf = require('modules.lsp.config')
+local lspconfig = require('modules.lsp.lspconfig')
+
+local enable_lsp_filetype = {
+  'julia',
+  'tex',
+  'sh',
+  'c',
+  'cpp',
+  'python',
+  'markdown',
+  'typescript',
+  'json',
+  'toml',
+  'lua',
+  'cmake'
+}
+
+plugin {
+  'neovim/nvim-lspconfig',
+  config = lspconfig,
+  after = 'nvim-lsp-installer',
+}
+plugin {
+  'williamboman/nvim-lsp-installer',
+  ft = enable_lsp_filetype
+}
+plugin {
+  'glepnir/lspsaga.nvim',
+  after = 'nvim-lspconfig',
+  config = conf.lspsaga,
+}
+plugin {
+  'simrat39/symbols-outline.nvim',
+  cmd = "SymbolsOutline",
+  config = conf.symbols_outline,
+  after = 'nvim-lspconfig',
+}
