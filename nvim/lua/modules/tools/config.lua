@@ -9,6 +9,13 @@ function config.telescope()
         require("telescope.themes").get_dropdown({})
       }
     },
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    },
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -56,7 +63,7 @@ function config.telescope()
     },
   })
 
-  local extensions = { 'ui-select' }
+  local extensions = { 'ui-select', 'fzf' }
 
   pcall(function()
     for _, ext in ipairs(extensions) do
