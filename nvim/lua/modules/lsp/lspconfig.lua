@@ -75,7 +75,12 @@ return function()
   end
 
   lspconfig['julials'].setup({
-    cmd = { 'julia', '-e', 'using LanguageServer; runserver()' },
+    cmd = {
+      'julia',
+      '--startup-file=no',
+      '-e',
+      'using LanguageServer; runserver()'
+    },
     on_attach = on_attach
   })
 
