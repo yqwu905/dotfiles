@@ -197,8 +197,7 @@ bindsym $mod+shift+x exec --no-startup-id i3lock
 #}
 
 # Remove border
-for_window [class="^.*"] border pixel 0
-#default_border pixel 0
+default_border none
 
 # Start IME
 exec --no-startup-id fcitx5 -d
