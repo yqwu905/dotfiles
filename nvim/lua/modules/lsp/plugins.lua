@@ -38,3 +38,8 @@ plugin {
   config = conf.symbols_outline,
   after = 'nvim-lspconfig',
 }
+plugin {
+  'j-hui/fidget.nvim',
+  after = 'nvim-lspconfig',
+  config = conf.fidget,
+}
