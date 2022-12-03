@@ -29,4 +29,14 @@ function config.notify()
   vim.notify = require('notify')
 end
 
+function config.filetype()
+  require('filetype').setup({
+    overrides = {
+      extensions = {
+        qmd = 'markdown',
+      }
+    }
+  })
+end
+
 return config

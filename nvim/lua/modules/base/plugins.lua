@@ -17,3 +17,7 @@ plugin {
   'rcarriga/nvim-notify',
   config = conf.notify
 }
+plugin {
+  'nathom/filetype.nvim',
+  config = conf.filetype
+}
