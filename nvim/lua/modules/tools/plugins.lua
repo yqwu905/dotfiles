@@ -19,7 +19,7 @@ plugin {
 plugin {
   'hkupty/iron.nvim',
   config = conf.iron,
-  ft = {'julia'},
+  ft = { 'julia' },
 }
 plugin {
   'TimUntersberger/neogit',
