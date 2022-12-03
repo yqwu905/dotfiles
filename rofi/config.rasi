@@ -149,4 +149,4 @@ icon-theme: "Tela-nord";
       sorting-method:    "name";
   }
 }
-@theme "/home/yqwu/.local/share/rofi/themes/rounded-nord-dark.rasi"
+@theme "~/.config/rofi/awel.rasi"
