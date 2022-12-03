@@ -46,6 +46,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec i3-sensible-terminal --class floatapp
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -246,3 +247,5 @@ exec --no-startup-id i3-msg "workspace $ws1; exec microsoft-edge-stable --proxy-
 exec --no-startup-id clash-verge
 
 gaps inner 5
+
+for_window [instance="floatapp"] floating enable border pixel 3
