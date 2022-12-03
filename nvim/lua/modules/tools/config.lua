@@ -1,7 +1,6 @@
 local config = {}
 
 function config.telescope()
-  print("Telescope test")
   local telescope = require("telescope")
   telescope.setup({
     extensions = {
