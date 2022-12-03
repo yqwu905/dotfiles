@@ -5,7 +5,7 @@ local conf = require('modules.completion.config')
 
 plugin {
   'SirVer/ultisnips',
-  event = 'InsertEnter',
+  -- event = 'InsertEnter',
 }
 plugin {
   'quangnguyen30192/cmp-nvim-ultisnips',
@@ -14,7 +14,7 @@ plugin {
 plugin {
   'hrsh7th/nvim-cmp',
   config = conf.cmp,
-  event = 'InsertEnter',
+  -- event = 'InsertEnter',
   requires = {
     {'hrsh7th/cmp-path', after = 'nvim-cmp'},
     {'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
