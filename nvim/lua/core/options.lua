@@ -76,3 +76,4 @@ opt.colorcolumn = '80'
 opt.conceallevel = 2
 -- opt.concealcursor = 'niv'
 vim.g.python3_host_prog = '/usr/bin/python'
+vim.cmd("set relativenumber")
