@@ -33,6 +33,7 @@ imap({
   -- insert mode
   { '<C-h>', '<Bs>', opts(noremap) },
   { '<C-e>', '<End>', opts(noremap) },
+  { '<C-s>', '<C-O><cmd>w<cr>', opts(noremap) },
 })
 
 -- commandline remap
