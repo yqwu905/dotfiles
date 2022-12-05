@@ -81,7 +81,8 @@ return function()
       '-e',
       'using LanguageServer; runserver()'
     },
-    on_attach = on_attach
+    on_attach = on_attach,
+    filetype = { 'julia' },
   })
 
   lspconfig.sumneko_lua.setup({
