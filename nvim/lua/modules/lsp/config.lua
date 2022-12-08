@@ -6,6 +6,9 @@ function config.lspsaga()
     symbol_in_winbar = {
       enable = true,
     },
+    code_action_lightbulb = {
+      enable = false,
+    },
   })
   local keymap = vim.keymap.set
   local bufopts = { noremap = true, silent = true }
