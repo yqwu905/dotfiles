@@ -47,19 +47,6 @@ return function()
   local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    local status, saga = pcall(require, 'lspsaga')
-    if status then
-      saga.init_lsp_saga({})
-      vim.keymap.set('n', 'gD', vim.lsp.buf.definition, bufopts)
-      vim.keymap.set('n', 'gd', '<cmd>Lspsaga lsp_finder<cr>', bufopts)
-      vim.keymap.set('n', 'gp', '<cmd>Lspsaga preview_definition<cr>', bufopts)
-      vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', bufopts)
-      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-      vim.keymap.set('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<cr>', bufopts)
-      vim.keymap.set('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<cr>', bufopts)
-    end
   end
 
 

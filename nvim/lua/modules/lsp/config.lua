@@ -7,13 +7,18 @@ function config.lspsaga()
       enable = true,
     },
   })
-end
-
-function config.symbols_outline()
-  require('symbols-outline').setup({
-    autofold_depth = 1,
-    auto_unfold_hover = false,
-  })
+  local keymap = vim.keymap.set
+  local bufopts = { noremap = true, silent = true }
+  keymap('n', '<A-i>', '<cmd>Lspsaga open_floaterm<CR>', { silent = true })
+  keymap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]],
+    { silent = true })
+  keymap('n', 'gD', '<cmd>Lspsaga lsp_finder<cr>', bufopts)
+  keymap('n', 'gd', '<cmd>Lspsaga peek_definition<cr>', bufopts)
+  keymap('n', 'gp', '<cmd>Lspsaga preview_definition<cr>', bufopts)
+  keymap('n', 'K', '<cmd>Lspsaga hover_doc<cr>', bufopts)
+  keymap('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  keymap('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<cr>', bufopts)
+  keymap('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<cr>', bufopts)
 end
 
 function config.fidget()
