@@ -28,4 +28,7 @@ plugin {
   config = conf.indent_blankline
 }
 plugin { 'folke/which-key.nvim' }
-
+plugin {
+  'folke/trouble.nvim',
+  config = conf.trouble
+}

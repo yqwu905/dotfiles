@@ -96,7 +96,7 @@ wk.register({
     r = { '<cmd>Lspsaga rename()<cr>', 'rename' },
     f = { '<cmd>lua vim.lsp.buf.format({async=true})<cr>', 'format' },
     a = { '<cmd>lua CodeAction()<cr>', 'code actions' },
-    d = { '<cmd>lua vim.diagnostic.setloclist()<cr>', 'diagnostics' },
+    d = { '<cmd>Trouble<cr>', 'diagnostics' },
   },
   s = {
     name = '+repl',
@@ -126,6 +126,15 @@ wk.register({
     c = { '<cmd>lua SwitchConcealLevel()<cr>', 'switch conceallevel' },
     s = { '<cmd>SymbolsOutline<cr>', 'taglist' },
     p = { '<cmd>lua ToggleMarkdownPreview()<cr>', 'preview' },
+  },
+  x = {
+    name = 'trouble',
+    d = { '<cmd>Trouble document_diagnostics<cr>', 'document' },
+    w = { '<cmd>Trouble workspace_diagnostics<cr>', 'workspace' },
+    q = { '<cmd>Trouble quickfix<cr>', 'quickfix' },
+    l = { '<cmd>Trouble loclist<cr>', 'loclist' },
+    r = { '<cmd>TroubleRefresh<cr>', 'refresh' },
+    x = { '<cmd>TroubleToggle<cr>', 'toggle' },
   },
 }, opts)
 

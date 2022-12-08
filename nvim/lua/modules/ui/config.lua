@@ -478,4 +478,8 @@ function config.bufferline()
   })
 end
 
+function config.trouble()
+  require('trouble').setup({})
+end
+
 return config
