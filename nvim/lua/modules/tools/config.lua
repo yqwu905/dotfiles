@@ -135,12 +135,4 @@ function config.gitsigns()
   }
 end
 
-function config.fterm()
-  require("FTerm").setup({
-    border = "double",
-    cmd = 'zsh',
-    dimensions = { height = 0.8, width = 0.9 },
-  })
-end
-
 return config

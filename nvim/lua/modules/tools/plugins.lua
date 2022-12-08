@@ -30,7 +30,3 @@ plugin {
   config = conf.gitsigns,
   event = 'BufRead',
 }
-plugin {
-  'numToStr/FTerm.nvim',
-  config = conf.fterm
-}

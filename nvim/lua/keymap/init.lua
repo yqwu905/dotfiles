@@ -124,7 +124,7 @@ wk.register({
     name = '+utils',
     r = { '<cmd>lua AsyncRunCode()<cr>', 'run' },
     c = { '<cmd>lua SwitchConcealLevel()<cr>', 'switch conceallevel' },
-    s = { '<cmd>SymbolsOutline<cr>', 'taglist' },
+    s = { '<cmd>LSoutlineToggle<cr>', 'taglist' },
     p = { '<cmd>lua ToggleMarkdownPreview()<cr>', 'preview' },
   },
   x = {
@@ -173,11 +173,6 @@ nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
 nmap s <cmd>HopWord<cr>
-
-noremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
-inoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
-vnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
-tnoremap <A-i> <cmd>lua require('FTerm').toggle()<CR>
 
 inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
