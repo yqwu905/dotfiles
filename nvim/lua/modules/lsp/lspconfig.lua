@@ -1,22 +1,6 @@
 return function()
   local servers = { 'pyright', 'bashls', 'cmake', 'texlab', 'jsonls', 'tsserver',
     'taplo', 'marksman' }
-  local manually_config_servers = { 'sumneko_lua' }
-  local manually_install_servers = { 'clangd' }
-  for i = 1, #manually_config_servers do
-    servers[#servers + 1] = manually_config_servers[i]
-  end
-  require('nvim-lsp-installer').setup({
-    ensure_installed = servers,
-    -- automatic_installation = true,
-    ui = {
-      icons = {
-        server_installed = '✓',
-        server_pending = '➜',
-        server_uninstalled = '✗'
-      }
-    },
-  })
 
   local lspconfig = require('lspconfig')
   local util = require('lspconfig.util')
@@ -50,26 +34,14 @@ return function()
   end
 
 
-  for i = 1, #manually_install_servers do
-    servers[#servers + 1] = manually_install_servers[i]
-  end
   for _, lsp in ipairs(servers) do
-    if manually_config_servers[lsp] == nil then
-      lspconfig[lsp].setup({
-        on_attach = on_attach
-      })
-    end
+    lspconfig[lsp].setup({
+      on_attach = on_attach
+    })
   end
 
-  lspconfig['julials'].setup({
-    cmd = {
-      'julia',
-      '--startup-file=no',
-      '-e',
-      'using LanguageServer; runserver()'
-    },
-    on_attach = on_attach,
-    filetype = { 'julia' },
+  lspconfig.julials.setup({
+    on_attach = on_attach
   })
 
   lspconfig.sumneko_lua.setup({
