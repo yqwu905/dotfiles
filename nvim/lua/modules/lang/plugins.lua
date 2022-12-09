@@ -14,6 +14,3 @@ plugin {
   config = conf.vimtexm,
   ft = { 'tex', 'markdown', 'latex' }
 }
-plugin {
-  'JuliaEditorSupport/julia-vim',
-}
