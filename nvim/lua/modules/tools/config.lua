@@ -1,39 +1,38 @@
 local config = {}
 
 function config.telescope()
-  local telescope = require("telescope")
+  local telescope = require('telescope')
   telescope.setup({
     extensions = {
-      ["ui-select"] = {
-        require("telescope.themes").get_dropdown({})
+      ['ui-select'] = {
+        require('telescope.themes').get_dropdown({})
       }
     },
     fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = 'smart_case',
     },
     defaults = {
       vimgrep_arguments = {
-        "rg",
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
+        'rg',
+        '--color=never',
+        '--no-heading',
+        '--with-filename',
+        '--line-number',
+        '--column',
+        '--smart-case',
       },
-      prompt_prefix = "   ",
-      selection_caret = "  ",
-      entry_prefix = "  ",
-      initial_mode = "insert", selection_strategy = "reset",
-      sorting_strategy = "ascending",
-      layout_strategy = "horizontal",
+      prompt_prefix = '   ',
+      selection_caret = '  ',
+      entry_prefix = '  ',
+      initial_mode = 'insert', selection_strategy = 'reset',
+      sorting_strategy = 'ascending',
+      layout_strategy = 'horizontal',
       layout_config = {
         horizontal = {
-          prompt_position = "top",
+          prompt_position = 'top',
           preview_width = 0.55,
           results_width = 0.8,
         },
@@ -44,21 +43,21 @@ function config.telescope()
         height = 0.80,
         preview_cutoff = 120,
       },
-      file_sorter = require("telescope.sorters").get_fuzzy_file,
-      file_ignore_patterns = { "node_modules" },
-      generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-      path_display = { "truncate" },
+      file_sorter = require('telescope.sorters').get_fuzzy_file,
+      file_ignore_patterns = { 'node_modules' },
+      generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
+      path_display = { 'truncate' },
       winblend = 0,
       border = {},
-      borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
       color_devicons = true,
       use_less = true,
-      set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-      file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-      grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+      set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+      file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+      grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+      qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
       -- Developer configurations: Not meant for general override
-      buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+      buffer_previewer_maker = require('telescope.previewers').buffer_previewer_maker,
     },
   })
 
@@ -76,14 +75,15 @@ function config.colorizer()
 end
 
 function config.iron()
-  local iron = require("iron.core")
+  local iron = require('iron.core')
 
   iron.setup({
     config = {
       scratch_repl = true,
       repl_definition = {
         julia = {
-          command = { "julia", "--banner=no", "--startup-file=no", "-i", "/home/yqwu/.config/nvim/static/startup.jl" }
+          command = { 'julia', '--banner=no', '--startup-file=no', '-i',
+            '/home/yqwu/.config/nvim/static/startup.jl' }
         }
       },
       repl_open_cmd = require('iron.view').split.vertical.botright(0.4),
@@ -94,11 +94,16 @@ end
 function config.gitsigns()
   require('gitsigns').setup {
     signs                        = {
-      add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-      change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-      delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-      topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-      changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+      add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr',
+        linehl = 'GitSignsAddLn' },
+      change       = { hl = 'GitSignsChange', text = '│',
+        numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+      delete       = { hl = 'GitSignsDelete', text = '_',
+        numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+      topdelete    = { hl = 'GitSignsDelete', text = '‾',
+        numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+      changedelete = { hl = 'GitSignsChange', text = '~',
+        numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
     },
     signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
     numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
