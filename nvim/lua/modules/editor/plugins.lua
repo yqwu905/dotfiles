@@ -2,7 +2,6 @@
 local plugin = require('core.pack').register_plugin
 local conf = require('modules.editor.config')
 
-plugin { 'andymass/vim-matchup' }
 plugin { 'tpope/vim-surround' }
 plugin {
   'numToStr/Comment.nvim',
