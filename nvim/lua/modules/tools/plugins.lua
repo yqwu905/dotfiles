@@ -30,3 +30,4 @@ plugin {
   config = conf.gitsigns,
   event = 'BufRead',
 }
+plugin { 'f-person/git-blame.nvim' }
