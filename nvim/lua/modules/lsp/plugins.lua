@@ -21,10 +21,6 @@ local enable_lsp_filetype = {
 plugin {
   'neovim/nvim-lspconfig',
   config = lspconfig,
-  after = 'nvim-lsp-installer',
-}
-plugin {
-  'williamboman/nvim-lsp-installer',
   ft = enable_lsp_filetype
 }
 plugin {
