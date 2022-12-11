@@ -7,7 +7,6 @@ plugin { 'nvim-lua/popup.nvim' }
 plugin { 'nvim-lua/plenary.nvim' }
 plugin {
   'nvim-treesitter/nvim-treesitter',
-  event = 'BufRead',
   run = ':TSUpdate',
   config = conf.nvim_treesitter,
 }

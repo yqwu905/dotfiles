@@ -11,4 +11,32 @@ function config.vimtex()
   vim.g.vimtex_quickfix_mode = 0
 end
 
+function config.neorg()
+  require('neorg').setup({
+    load = {
+      ['core.defaults'] = {}, -- Default module
+      ['core.norg.concealer'] = {}, -- Conceal support
+      ['core.norg.dirman'] = { -- Workspace
+        config = {
+          workspaces = {
+            note = '~/repos/notes',
+          },
+          default_workspace = 'note'
+        },
+      },
+      ['core.norg.completion'] = {
+        config = {
+          engine = 'nvim-cmp'
+        }
+      },
+      ['core.gtd.base'] = {
+        config = {
+          workspace = 'note'
+        }
+      },
+      ['core.integrations.telescope'] = {},
+    }
+  })
+end
+
 return config

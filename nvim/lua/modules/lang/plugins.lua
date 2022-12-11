@@ -14,3 +14,13 @@ plugin {
   config = conf.vimtexm,
   ft = { 'tex', 'markdown', 'latex' }
 }
+plugin {
+  'nvim-neorg/neorg',
+  config = conf.neorg,
+  run = ':Neorg sync-parsers',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'nvim-neorg/neorg-telescope',
+  },
+  after = {'nvim-treesitter'}
+}

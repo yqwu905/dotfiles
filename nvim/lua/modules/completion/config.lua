@@ -89,6 +89,7 @@ function config.cmp()
       { name = "buffer" },
       { name = "nvim_lua" },
       { name = "path" },
+      { name = 'neorg' },
     },
     window = {
       completion = cmp.config.window.bordered(),

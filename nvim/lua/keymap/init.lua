@@ -53,7 +53,8 @@ wk.register({
     'buffer 9' },
   e = {
     name = '+enter',
-    c = { '<cmd>e $MYVIMRC | :cd %:p:h <CR>', 'nvim config' }
+    c = { '<cmd>e $MYVIMRC | :cd %:p:h <CR>', 'nvim config' },
+    o = { '<cmd>e /home/yqwu/repos/notes/index.norg | :cd %:p:h <CR>', 'neorg' }
   },
   f = {
     name = '+find',
@@ -61,7 +62,15 @@ wk.register({
       'find all files' },
     f = { '<cmd>Telescope find_files<cr>', 'find files' },
     h = { '<cmd>Telescope help_tags<cr>', 'help tags' },
-    o = { '<cmd>Telescope oldfiles<cr>', 'old files' },
+    r = { '<cmd>Telescope oldfiles<cr>', 'recent files' },
+    o = { '<cmd>lua require("telescope.builtin").find_files({search_dirs={"~/repos/notes"}})<cr>',
+      'org files' },
+    n = {
+      name = 'neorg',
+      l = {'<cmd>Telescope neorg find_linkable<cr>', 'linkable'},
+      c = {'<cmd>Telescope neorg find_context_tasks<cr>', 'context tasks'},
+      p = {'<cmd>Telescope neorg find_project_tasks<cr>', 'project tasks'},
+    },
     w = { '<cmd>Telescope live_grep<cr>', 'live grep' },
     s = { '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', 'workspace symbols' },
     t = { '<cmd>Telescope<CR>', 'telescope' },
@@ -106,6 +115,27 @@ wk.register({
     s = { '<cmd>IronFocus<cr>', 'focus repl' },
     ['<cr>'] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>",
       'send cr' },
+  },
+  o = {
+    name = '+org',
+    c = { '<cmd>Neorg toggle-concealer<cr>', 'conceal' },
+    g = {
+      name = '+gtd',
+      v = { '<cmd>Neorg gtd views<cr>', 'view' },
+      c = { '<cmd>Neorg gtd capture<cr>', 'capture' },
+    },
+    i = { '<cmd>Neorg workspace note<cr>', 'index' },
+    m = {
+      name = '+metadata',
+      i = { '<cmd>Neorg inject-metadata<cr>', 'inject' },
+      u = { '<cmd>Neorg update-metadata<cr>', 'update' },
+    },
+    t = {
+      name = '+toc',
+      i = { '<cmd>Neorg toc inline<cr>', 'inline' },
+      s = { '<cmd>Neorg toc split<cr>', 'split' },
+      c = { '<cmd>Neorg toc close<cr>', 'close' },
+    },
   },
   p = {
     name = '+packer',
