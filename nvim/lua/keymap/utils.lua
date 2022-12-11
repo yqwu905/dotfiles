@@ -1,4 +1,6 @@
-_G.close_buffer = function(force)
+local utils = {}
+
+function utils.close_buffer(force)
   local opts = {
     next = 'cycle', -- how to retrieve the next buffer
     quit = false, -- exit when last buffer is deleted
@@ -85,7 +87,7 @@ _G.close_buffer = function(force)
   end
 end
 
-_G.AsyncRunCode = function()
+function utils.async_run_code()
   local path = '"' .. vim.fn.expand('%') .. '"'
   if vim.fn.filereadable('CMakeLists.txt') ~= 0 then
     vim.notify('Build Cmake Project')
@@ -119,7 +121,7 @@ _G.AsyncRunCode = function()
   end
 end
 
-_G.ToggleMarkdownPreview = function()
+function utils.toggle_preview()
   local md_path = vim.api.nvim_buf_get_name(0)
   local extension = md_path:match('^.+%.(.+)$')
   if extension == 'md' then
@@ -154,7 +156,7 @@ local function commit()
     { silent = true })
 end
 
-_G.Commit = { commit = commit, docommit = docommit }
+utils.Commit = { commit = commit, docommit = docommit }
 
 _G.get_visual_selection = function()
   local s_start = vim.fn.getpos("'<")

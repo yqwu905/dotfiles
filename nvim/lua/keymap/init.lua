@@ -79,7 +79,7 @@ wk.register({
   g = {
     name = '+git',
     b = { "<cmd>lua require'gitsigns'.blame_line{full=true}<cr>", 'git blame' },
-    c = { '<cmd>lua Commit.commit()<cr>', 'git commit' },
+    c = { utils.Commit.commit, 'git commit' },
     d = {
       name = '+git diff',
       f = { '<cmd>lua ToggleDiffView(false)<CR>', 'diff file' },
@@ -148,14 +148,14 @@ wk.register({
     name = '+quit',
     q = { '<cmd>wqa<cr>', 'quit' },
     f = { '<cmd>qa!<cr>', 'force quit' },
-    x = { '<cmd>lua close_buffer()<cr>', 'close buffer' }
+    x = { utils.close_buffer, 'close buffer' }
   },
   u = {
     name = '+utils',
-    r = { '<cmd>lua AsyncRunCode()<cr>', 'run' },
+    r = { utils.async_run_code, 'run' },
     c = { utils.switch_conceallevel, 'switch conceallevel' },
     s = { '<cmd>LSoutlineToggle<cr>', 'taglist' },
-    p = { '<cmd>lua ToggleMarkdownPreview()<cr>', 'preview' },
+    p = { utils.toggle_preview, 'preview' },
   },
   x = {
     name = 'trouble',
