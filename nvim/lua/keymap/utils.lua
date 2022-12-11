@@ -130,27 +130,28 @@ _G.ToggleMarkdownPreview = function()
 end
 
 local function docommit(win)
-  local commit_message = vim.trim(vim.fn.getline("."))
+  local commit_message = vim.trim(vim.fn.getline('.'))
   vim.api.nvim_win_close(win, true)
   os.execute(string.format("git commit -m '%s'", commit_message))
 end
 
 local function commit()
   local opts = {
-    relative = "editor",
+    relative = 'editor',
     col = math.ceil(0.5 * (vim.o.columns - 60)),
     row = math.ceil(0.5 * (vim.o.lines - 4) - 1),
     width = 60,
     height = 4,
-    style = "minimal",
-    border = "double",
+    style = 'minimal',
+    border = 'double',
   }
   local buf = vim.api.nvim_create_buf(false, true)
   local win = vim.api.nvim_open_win(buf, true, opts)
-  local fmt = "<cmd>lua Commit.docommit(%d)<CR>"
+  local fmt = '<cmd>lua Commit.docommit(%d)<CR>'
 
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-  vim.api.nvim_buf_set_keymap(buf, "i", "<CR>", string.format(fmt, win), { silent = true })
+  vim.api.nvim_buf_set_keymap(buf, 'i', '<CR>', string.format(fmt, win),
+    { silent = true })
 end
 
 _G.Commit = { commit = commit, docommit = docommit }

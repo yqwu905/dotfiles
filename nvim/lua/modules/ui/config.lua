@@ -15,17 +15,17 @@ function config.nvimtree()
     open_on_setup = false,
     open_on_setup_file = false,
     open_on_tab = false,
-    sort_by = "name",
+    sort_by = 'name',
     update_cwd = false,
     view = {
       width = 30,
       -- height = 30,
       hide_root_folder = false,
-      side = "left",
+      side = 'left',
       preserve_window_proportions = false,
       number = false,
       relativenumber = false,
-      signcolumn = "yes",
+      signcolumn = 'yes',
       mappings = {
         custom_only = false,
         list = {
@@ -37,9 +37,9 @@ function config.nvimtree()
       indent_markers = {
         enable = false,
         icons = {
-          corner = "└ ",
-          edge = "│ ",
-          none = "  ",
+          corner = '└ ',
+          edge = '│ ',
+          none = '  ',
         },
       },
       icons = {
@@ -57,17 +57,17 @@ function config.nvimtree()
     },
     ignore_ft_on_setup = {},
     system_open = {
-      cmd = "",
+      cmd = '',
       args = {},
     },
     diagnostics = {
       enable = false,
       show_on_dirs = false,
       icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+        hint = '',
+        info = '',
+        warning = '',
+        error = '',
       },
     },
     filters = {
@@ -92,16 +92,17 @@ function config.nvimtree()
         resize_window = false,
         window_picker = {
           enable = true,
-          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
           exclude = {
-            filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-            buftype = { "nofile", "terminal", "help" },
+            filetype = { 'notify', 'packer', 'qf', 'diff', 'fugitive',
+              'fugitiveblame' },
+            buftype = { 'nofile', 'terminal', 'help' },
           },
         },
       },
     },
     trash = {
-      cmd = "trash",
+      cmd = 'trash',
       require_confirm = true,
     },
     log = {
@@ -120,7 +121,7 @@ function config.nvimtree()
 end
 
 function config.lualine()
-    -- Eviline config for lualine
+  -- Eviline config for lualine
   -- Author: shadmansaleh
   -- Credit: glepnir
   local lualine = require('lualine')
@@ -246,12 +247,12 @@ function config.lualine()
   ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
-    color = { fg = colors.magenta},
+    color = { fg = colors.magenta },
   }
 
   ins_left { 'location' }
 
-  ins_left { 'progress', color = { fg = colors.fg} }
+  ins_left { 'progress', color = { fg = colors.fg } }
 
   ins_left {
     'diagnostics',
@@ -291,7 +292,7 @@ function config.lualine()
       return msg
     end,
     icon = ' LSP:',
-    color = { fg = '#ffffff'},
+    color = { fg = '#ffffff' },
   }
 
   -- Add components to right sections
@@ -299,20 +300,20 @@ function config.lualine()
     'o:encoding', -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
-    color = { fg = colors.green},
+    color = { fg = colors.green },
   }
 
   ins_right {
     'fileformat',
     fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-    color = { fg = colors.green},
+    color = { fg = colors.green },
   }
 
   ins_right {
     'branch',
     icon = '',
-    color = { fg = colors.violet},
+    color = { fg = colors.violet },
   }
 
   ins_right {
@@ -340,76 +341,78 @@ function config.lualine()
 end
 
 function config.alpha()
-  local present, alpha = pcall(require, "alpha")
+  local present, alpha = pcall(require, 'alpha')
 
   if not present then
     return
   end
 
   local ascii = {
-    " ⡿⠋⠄⣀⣀⣤⣴⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣌⠻⣿⣿ ",
-    " ⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠹⣿ ",
-    " ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠹ ",
-    " ⣿⣿⡟⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡛⢿⣿⣿⣿⣮⠛⣿⣿⣿⣿⣿⣿⡆ ",
-    " ⡟⢻⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣣⠄⡀⢬⣭⣻⣷⡌⢿⣿⣿⣿⣿⣿ ",
-    " ⠃⣸⡀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⣆⢹⣿⣿⣿⡈⢿⣿⣿⣿⣿ ",
-    " ⠄⢻⡇⠄⢛⣛⣻⣿⣿⣿⣿⣿⣿⣿⣿⡆⠹⣿⣆⠸⣆⠙⠛⠛⠃⠘⣿⣿⣿⣿ ",
-    " ⠄⠸⣡⠄⡈⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠁⣠⣉⣤⣴⣿⣿⠿⠿⠿⡇⢸⣿⣿⣿ ",
-    " ⠄⡄⢿⣆⠰⡘⢿⣿⠿⢛⣉⣥⣴⣶⣿⣿⣿⣿⣻⠟⣉⣤⣶⣶⣾⣿⡄⣿⡿⢸ ",
-    " ⠄⢰⠸⣿⠄⢳⣠⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣿⡇⢻⡇⢸ ",
-    " ⢷⡈⢣⣡⣶⠿⠟⠛⠓⣚⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⠇⠘ ",
-    " ⡀⣌⠄⠻⣧⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⠛⠛⢿⣿⣿⣿⣿⣿⡟⠘⠄⠄ ",
-    " ⣷⡘⣷⡀⠘⣿⣿⣿⣿⣿⣿⣿⣿⡋⢀⣠⣤⣶⣶⣾⡆⣿⣿⣿⠟⠁⠄⠄⠄⠄ ",
-    " ⣿⣷⡘⣿⡀⢻⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣿⣿⣿⣿⣷⡿⠟⠉⠄⠄⠄⠄⡄⢀ ",
-    " ⣿⣿⣷⡈⢷⡀⠙⠛⠻⠿⠿⠿⠿⠿⠷⠾⠿⠟⣛⣋⣥⣶⣄⠄⢀⣄⠹⣦⢹⣿ ",
+    ' ⡿⠋⠄⣀⣀⣤⣴⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣌⠻⣿⣿ ',
+    ' ⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠹⣿ ',
+    ' ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠹ ',
+    ' ⣿⣿⡟⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡛⢿⣿⣿⣿⣮⠛⣿⣿⣿⣿⣿⣿⡆ ',
+    ' ⡟⢻⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣣⠄⡀⢬⣭⣻⣷⡌⢿⣿⣿⣿⣿⣿ ',
+    ' ⠃⣸⡀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⣆⢹⣿⣿⣿⡈⢿⣿⣿⣿⣿ ',
+    ' ⠄⢻⡇⠄⢛⣛⣻⣿⣿⣿⣿⣿⣿⣿⣿⡆⠹⣿⣆⠸⣆⠙⠛⠛⠃⠘⣿⣿⣿⣿ ',
+    ' ⠄⠸⣡⠄⡈⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠁⣠⣉⣤⣴⣿⣿⠿⠿⠿⡇⢸⣿⣿⣿ ',
+    ' ⠄⡄⢿⣆⠰⡘⢿⣿⠿⢛⣉⣥⣴⣶⣿⣿⣿⣿⣻⠟⣉⣤⣶⣶⣾⣿⡄⣿⡿⢸ ',
+    ' ⠄⢰⠸⣿⠄⢳⣠⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣿⡇⢻⡇⢸ ',
+    ' ⢷⡈⢣⣡⣶⠿⠟⠛⠓⣚⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢸⠇⠘ ',
+    ' ⡀⣌⠄⠻⣧⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠛⠛⠛⢿⣿⣿⣿⣿⣿⡟⠘⠄⠄ ',
+    ' ⣷⡘⣷⡀⠘⣿⣿⣿⣿⣿⣿⣿⣿⡋⢀⣠⣤⣶⣶⣾⡆⣿⣿⣿⠟⠁⠄⠄⠄⠄ ',
+    ' ⣿⣷⡘⣿⡀⢻⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣿⣿⣿⣿⣷⡿⠟⠉⠄⠄⠄⠄⡄⢀ ',
+    ' ⣿⣿⣷⡈⢷⡀⠙⠛⠻⠿⠿⠿⠿⠿⠷⠾⠿⠟⣛⣋⣥⣶⣄⠄⢀⣄⠹⣦⢹⣿ ',
   }
 
   local header = {
-    type = "text",
+    type = 'text',
     val = ascii,
     opts = {
-      position = "center",
-      hl = "Type",
+      position = 'center',
+      hl = 'Type',
     },
   }
 
   local function button(sc, txt, keybind)
-    local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+    local sc_ = sc:gsub('%s', ''):gsub('SPC', '<leader>')
 
     local opts = {
-      position = "center",
+      position = 'center',
       text = txt,
       shortcut = sc,
       cursor = 5,
       width = 36,
-      align_shortcut = "right",
-      hl = "Type",
+      align_shortcut = 'right',
+      hl = 'Type',
     }
 
     if keybind then
-      opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
+      opts.keymap = { 'n', sc_, keybind, { noremap = true, silent = true } }
     end
 
     return {
-      type = "button",
+      type = 'button',
       val = txt,
       on_press = function()
         local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-        vim.api.nvim_feedkeys(key, "normal", false)
+        vim.api.nvim_feedkeys(key, 'normal', false)
       end,
       opts = opts,
     }
   end
 
   local buttons = {
-    type = "group",
+    type = 'group',
     val = {
-      button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-      button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
-      button("SPC f w", "  Find Word  ", ":Telescope live_grep<CR>"),
-      button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
-      button("SPC t h", "  Themes  ", ":Telescope themes<CR>"),
-      button("SPC e c", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+      button('SPC f f', '  Find File  ', ':Telescope find_files<CR>'),
+      button('SPC f r', '  Recent File  ', ':Telescope oldfiles<CR>'),
+      button('SPC f w', '  Find Word  ', ':Telescope live_grep<CR>'),
+      button('SPC f o', '  Neorg File',
+        '<cmd>lua require("telescope.builtin").find_files({search_dirs={"~/repos/notes"}})<cr>'),
+      button('SPC b m', '  Bookmarks  ', ':Telescope marks<CR>'),
+      button('SPC t h', '  Themes  ', ':Telescope themes<CR>'),
+      button('SPC e c', '  Settings', ':e $MYVIMRC | :cd %:p:h <CR>'),
     },
     opts = {
       spacing = 1,
@@ -423,9 +426,9 @@ function config.alpha()
 
   alpha.setup({
     layout = {
-      { type = "padding", val = 5 },
+      { type = 'padding', val = 5 },
       section.header,
-      { type = "padding", val = 2 },
+      { type = 'padding', val = 2 },
       section.buttons,
     },
     opts = {},
@@ -439,34 +442,34 @@ end
 function config.bufferline()
   require('bufferline').setup({
     options = {
-      offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
-      numbers = "ordinal",
-      buffer_close_icon = "",
-      modified_icon = "",
-      close_icon = "",
+      offsets = { { filetype = 'NvimTree', text = '', padding = 1 } },
+      numbers = 'ordinal',
+      buffer_close_icon = '',
+      modified_icon = '',
+      close_icon = '',
       show_close_icon = false,
-      left_trunc_marker = "",
-      right_trunc_marker = "",
+      left_trunc_marker = '',
+      right_trunc_marker = '',
       max_name_length = 14,
       max_prefix_length = 13,
       tab_size = 15,
       show_tab_indicators = true,
       enforce_regular_tabs = false,
-      view = "multiwindow",
+      view = 'multiwindow',
       show_buffer_close_icons = true,
-      separator_style = "thin",
+      separator_style = 'thin',
       always_show_bufferline = true,
       diagnostics = false,
       custom_filter = function(buf_number)
         -- Func to filter out our managed/persistent split terms
         local present_type, type = pcall(function()
-          return vim.api.nvim_buf_get_var(buf_number, "term_type")
+          return vim.api.nvim_buf_get_var(buf_number, 'term_type')
         end)
 
         if present_type then
-          if type == "vert" then
+          if type == 'vert' then
             return false
-          elseif type == "hori" then
+          elseif type == 'hori' then
             return false
           end
           return true

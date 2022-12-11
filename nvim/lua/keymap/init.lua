@@ -67,9 +67,9 @@ wk.register({
       'org files' },
     n = {
       name = 'neorg',
-      l = {'<cmd>Telescope neorg find_linkable<cr>', 'linkable'},
-      c = {'<cmd>Telescope neorg find_context_tasks<cr>', 'context tasks'},
-      p = {'<cmd>Telescope neorg find_project_tasks<cr>', 'project tasks'},
+      l = { '<cmd>Telescope neorg find_linkable<cr>', 'linkable' },
+      c = { '<cmd>Telescope neorg find_context_tasks<cr>', 'context tasks' },
+      p = { '<cmd>Telescope neorg find_project_tasks<cr>', 'project tasks' },
     },
     w = { '<cmd>Telescope live_grep<cr>', 'live grep' },
     s = { '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', 'workspace symbols' },
