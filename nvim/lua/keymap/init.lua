@@ -9,7 +9,7 @@ local nmap, imap, xmap, vmap = key.nmap, key.imap, key.xmap, key.vmap
 local silent, noremap = key.silent, key.noremap
 local opts = key.new_opts
 local cmd = key.cmd
-require('keymap.utils')
+local utils = require('keymap.utils')
 
 local wk = require('which-key')
 local opts = {
@@ -153,7 +153,7 @@ wk.register({
   u = {
     name = '+utils',
     r = { '<cmd>lua AsyncRunCode()<cr>', 'run' },
-    c = { '<cmd>lua SwitchConcealLevel()<cr>', 'switch conceallevel' },
+    c = { utils.switch_conceallevel, 'switch conceallevel' },
     s = { '<cmd>LSoutlineToggle<cr>', 'taglist' },
     p = { '<cmd>lua ToggleMarkdownPreview()<cr>', 'preview' },
   },

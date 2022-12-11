@@ -169,3 +169,17 @@ _G.get_visual_selection = function()
   end
   return lines
 end
+
+function utils.switch_conceallevel()
+  if (vim.bo.filetype == 'norg') then
+    vim.cmd('Neorg toggle-concealer')
+  else
+    if (vim.o.conceallevel == 2) then
+      vim.o.conceallevel = 0
+    else
+      vim.o.conceallevel = 2
+    end
+  end
+end
+
+return utils
