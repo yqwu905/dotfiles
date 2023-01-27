@@ -54,7 +54,7 @@ wk.register({
   e = {
     name = '+enter',
     c = { '<cmd>e $MYVIMRC | :cd %:p:h <CR>', 'nvim config' },
-    o = { '<cmd>e /home/yqwu/repos/notes/index.norg | :cd %:p:h <CR>', 'neorg' }
+    o = { '<cmd>e /home/yqwu/repos/notes/inbox.norg | :cd %:p:h <CR>', 'neorg' }
   },
   f = {
     name = '+find',

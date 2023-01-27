@@ -31,7 +31,8 @@ function config.neorg()
       },
       ['core.gtd.base'] = {
         config = {
-          workspace = 'note'
+          workspace = 'note',
+          exclude = {'archive/'}
         }
       },
       ['core.integrations.telescope'] = {},

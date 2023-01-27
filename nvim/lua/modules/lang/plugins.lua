@@ -22,5 +22,7 @@ plugin {
     'nvim-lua/plenary.nvim',
     'nvim-neorg/neorg-telescope',
   },
-  after = { 'nvim-treesitter' }
+  after = { 'nvim-treesitter' },
+  cmd = { 'Neorg' },
+  ft = { 'norg' },
 }
