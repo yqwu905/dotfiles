@@ -1,6 +1,6 @@
 return function()
   local servers = { 'pyright', 'bashls', 'cmake', 'texlab', 'jsonls', 'tsserver',
-    'taplo', 'marksman' }
+    'taplo', 'marksman', 'clangd' }
 
   local lspconfig = require('lspconfig')
   local util = require('lspconfig.util')
