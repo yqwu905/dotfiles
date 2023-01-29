@@ -2,7 +2,6 @@
 -- date: 2022-07-02
 -- License: MIT
 local opt = vim.opt
-local cache_dir = require('core.helper').get_cache_path()
 
 opt.termguicolors = true
 opt.shell = 'zsh'
@@ -12,11 +11,6 @@ opt.virtualedit = 'block'
 opt.clipboard = 'unnamedplus'
 opt.wildignorecase = true
 opt.swapfile = false
-opt.directory = cache_dir .. 'swap/'
-opt.undodir = cache_dir .. 'undo/'
-opt.backupdir = cache_dir .. 'backup/'
-opt.viewdir = cache_dir .. 'view/'
-opt.spellfile = cache_dir .. 'spell/en.uft-8.add'
 opt.history = 2000
 opt.timeout = true
 opt.ttimeout = true

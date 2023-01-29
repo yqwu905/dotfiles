@@ -1,14 +1,5 @@
--- author: glepnr https://github.com/glepnir
--- date: 2022-07-02
--- License: MIT
--- recommend plugins key defines in this file
+vim.g.mapleader = ' '
 
-require('keymap.config')
-local key = require('core.keymap')
-local nmap, imap, xmap, vmap = key.nmap, key.imap, key.xmap, key.vmap
-local silent, noremap = key.silent, key.noremap
-local opts = key.new_opts
-local cmd = key.cmd
 local utils = require('keymap.utils')
 
 local wk = require('which-key')
@@ -16,8 +7,7 @@ local opts = {
   mode = 'n',
   prefix = '<leader>',
   buffer = nil,
-  silent = true,
-  noremap = false,
+  silent = true, noremap = false,
   nowait = false,
 }
 
@@ -146,11 +136,8 @@ wk.register({
     },
   },
   p = {
-    name = '+packer',
-    c = { '<cmd>PackerCompile<cr>', 'compile' },
-    s = { '<cmd>PackerStatus<cr>', 'status' },
-    i = { '<cmd>PackerInstall<cr>', 'install' },
-    u = { '<cmd>PackerSync<cr>', 'sync' },
+    name = '+plugin',
+    h = { '<cmd>Lazy home<cr>', 'dashboard' },
   },
   q = {
     name = '+quit',
@@ -220,4 +207,14 @@ inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" 
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 
 tnoremap <Esc> <C-\><C-n>
+
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
+
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
 ]]

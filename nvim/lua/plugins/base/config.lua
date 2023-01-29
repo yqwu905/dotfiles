@@ -8,11 +8,6 @@ function config.nvim_treesitter()
     highlight = {
       enable = true,
     },
-    rainbow = {
-      enable = true,
-      extended_mode = true,
-      max_file_lines = nil,
-    },
     textobjects = {
       select = {
         enable = true,
@@ -24,23 +19,6 @@ function config.nvim_treesitter()
         },
       },
     },
-  })
-end
-
-function config.notify()
-  require('notify').setup({
-    background_colour = '#000000'
-  })
-  vim.notify = require('notify')
-end
-
-function config.filetype()
-  require('filetype').setup({
-    overrides = {
-      extensions = {
-        qmd = 'markdown',
-      }
-    }
   })
 end
 

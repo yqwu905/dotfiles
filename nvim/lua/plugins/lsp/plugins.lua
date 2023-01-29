@@ -1,7 +1,7 @@
 -- LSP relevant plugins.
-local plugin = require('core.pack').register_plugin
-local conf = require('modules.lsp.config')
-local lspconfig = require('modules.lsp.lspconfig')
+local reg = require('core.lazy').reg
+local conf = require('plugins.lsp.config')
+local lspconfig = require('plugins.lsp.lspconfig')
 
 local enable_lsp_filetype = {
   'julia',
@@ -18,17 +18,17 @@ local enable_lsp_filetype = {
   'cmake'
 }
 
-plugin {
+reg {
   'neovim/nvim-lspconfig',
   config = lspconfig,
   ft = enable_lsp_filetype
 }
-plugin {
+reg {
   'glepnir/lspsaga.nvim',
   after = 'nvim-lspconfig',
   config = conf.lspsaga,
 }
-plugin {
+reg {
   'j-hui/fidget.nvim',
   after = 'nvim-lspconfig',
   config = conf.fidget,

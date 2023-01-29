@@ -1,19 +1,19 @@
-local plugin = require('core.pack').register_plugin
-local dap = require('modules.dap.dap')
-local conf = require('modules.dap.config')
+local reg = require('core.lazy').reg
+local dap = require('plugins.dap.dap')
+local conf = require('plugins.dap.config')
 
-plugin {
+reg {
   'mfussenegger/nvim-dap',
   event = 'BufEnter',
   ft = {'cpp'},
   config = dap,
 }
-plugin {
+reg {
   'rcarriga/nvim-dap-ui',
   after = 'nvim-dap',
   config = conf.dapui,
 }
-plugin {
+reg {
   'theHamsta/nvim-dap-virtual-text',
   after = 'nvim-dap',
   config = conf.dap_virtual_text,

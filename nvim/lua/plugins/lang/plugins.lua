@@ -1,29 +1,27 @@
--- Language specific plugins.
-local plugin = require('core.pack').register_plugin
-local conf = require('modules.lang.config')
+local reg = require('core.lazy').reg
+local conf = require('plugins.lang.config')
 
-plugin {
+reg {
   'iamcco/markdown-preview.nvim',
-  run = function()
+  build = function()
     vim.fn['mkdp#util#install']()
   end,
   ft = { 'markdown' }
 }
-plugin {
+reg {
   'lervag/vimtex',
-  config = conf.vimtexm,
+  config = conf.vimtex,
   ft = { 'tex', 'markdown', 'latex' }
 }
-plugin {
+reg {
   'nvim-neorg/neorg',
   commit = 'a79bf5969e27a3f1f1478c9b05c187815f2b2390',
   config = conf.neorg,
-  run = ':Neorg sync-parsers',
-  requires = {
+  build = ':Neorg sync-parsers',
+  dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-neorg/neorg-telescope',
   },
-  after = { 'nvim-treesitter' },
   cmd = { 'Neorg' },
   ft = { 'norg' },
 }
