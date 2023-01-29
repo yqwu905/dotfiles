@@ -17,10 +17,6 @@ reg {
   cmd = 'AsyncRun',
 }
 reg {
-  'MunifTanjim/nui.nvim',
-  lazy = true,
-}
-reg {
   'kyazdani42/nvim-web-devicons',
   lazy = true
 }

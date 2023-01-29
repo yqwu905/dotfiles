@@ -42,8 +42,3 @@ reg {
   config = conf.trouble,
   cmd = 'Trouble'
 }
-reg {
-  'folke/noice.nvim',
-  config = conf.noice,
-  event = 'VeryLazy',
-}
