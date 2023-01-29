@@ -39,7 +39,7 @@ return function()
       type = 'lldb',
       request = 'launch',
       program = function()
-        return vim.fn.getcwd() .. '/test'
+        return vim.fn.getcwd() .. '/a.out'
       end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,

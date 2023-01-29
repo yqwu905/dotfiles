@@ -184,4 +184,19 @@ function utils.switch_conceallevel()
   end
 end
 
+function utils.cpp_debug()
+  if (vim.bo.filetype ~= 'cpp') then
+    return
+  end
+  local handle = io.popen('g++ -std=c++11 -g -o a.out ' ..
+    vim.fn.expand('%') .. ' 2>&1 || echo ::ERROR::', 'r')
+  local resp = handle:read('*a')
+  if (resp:find('::ERROR::')) then
+    vim.notify('Failed to compile.', vim.log.levels.ERROR)
+  else
+    vim.notify('Compile down, debug start...', vim.log.levels.INFO)
+    require('dap').continue()
+  end
+end
+
 return utils

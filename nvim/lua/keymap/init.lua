@@ -47,7 +47,7 @@ wk.register({
     B = { "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > ');<cr>",
       'breakpoint' },
     e = { "<cmd>lua require'dapui'.eval()<cr>", 'eval' },
-    r = { "<cmd>lua require('dap').continue()<cr>", 'run' },
+    r = { utils.cpp_debug, 'run' },
   },
   e = {
     name = '+enter',
