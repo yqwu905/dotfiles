@@ -4,7 +4,7 @@ function config.nvim_treesitter()
   require('nvim-treesitter.configs').setup({
     ensure_installed = 'all',
     sync_install = true,
-    ignore_install = { 'latex', 'markdown', 'phpdoc' },
+    ignore_install = { 'latex', 'phpdoc' },
     highlight = {
       enable = true,
     },

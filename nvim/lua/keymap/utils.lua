@@ -131,13 +131,15 @@ function utils.toggle_preview()
   end
 end
 
-local function docommit(win)
+utils.Commit = {}
+
+function utils.Commit.docommit(win)
   local commit_message = vim.trim(vim.fn.getline('.'))
   vim.api.nvim_win_close(win, true)
   os.execute(string.format("git commit -m '%s'", commit_message))
 end
 
-local function commit()
+function utils.Commit.commit()
   local opts = {
     relative = 'editor',
     col = math.ceil(0.5 * (vim.o.columns - 60)),
@@ -155,8 +157,6 @@ local function commit()
   vim.api.nvim_buf_set_keymap(buf, 'i', '<CR>', string.format(fmt, win),
     { silent = true })
 end
-
-utils.Commit = { commit = commit, docommit = docommit }
 
 _G.get_visual_selection = function()
   local s_start = vim.fn.getpos("'<")

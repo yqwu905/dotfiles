@@ -51,6 +51,14 @@ wk.register({
     'buffer 8' },
   ['9'] = { "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>",
     'buffer 9' },
+  d = {
+    name = '+debug',
+    b = { "<cmd>lua require('dap').toggle_breakpoint()<cr>;", 'breakpoint' },
+    B = { "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > ');<cr>",
+      'breakpoint' },
+    e = { "<cmd>lua require'dapui'.eval()<cr>", 'eval' },
+    r = { "<cmd>lua require('dap').continue()<cr>", 'run' },
+  },
   e = {
     name = '+enter',
     c = { '<cmd>e $MYVIMRC | :cd %:p:h <CR>', 'nvim config' },
@@ -102,9 +110,9 @@ wk.register({
       k = { '<cmd>LspStop<cr>', 'LSP Stop' },
       s = { '<cmd>LspStart<cr>', 'LSP Start' },
     },
-    r = { '<cmd>Lspsaga rename()<cr>', 'rename' },
+    r = { '<cmd>Lspsaga rename<cr>', 'rename' },
     f = { '<cmd>lua vim.lsp.buf.format({async=true})<cr>', 'format' },
-    a = { '<cmd>lua CodeAction()<cr>', 'code actions' },
+    a = { '<cmd>Lspsaga code_action<cr>', 'code actions' },
     d = { '<cmd>Trouble<cr>', 'diagnostics' },
   },
   s = {
@@ -154,7 +162,7 @@ wk.register({
     name = '+utils',
     r = { utils.async_run_code, 'run' },
     c = { utils.switch_conceallevel, 'switch conceallevel' },
-    s = { '<cmd>LSoutlineToggle<cr>', 'taglist' },
+    s = { '<cmd>Lspsaga outline<cr>', 'taglist' },
     p = { utils.toggle_preview, 'preview' },
   },
   x = {
@@ -201,6 +209,10 @@ omap T <Plug>(eft-T)
 
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
+
+nmap <F1> <cmd>lua require'dap'.step_over()<cr>
+nmap <F2> <cmd>lua require'dap'.step_into()<cr>
+nmap <F3> <cmd>lua require'dap'.step_out()<cr>
 
 nmap s <cmd>HopWord<cr>
 
