@@ -42,3 +42,4 @@ reg {
   config = conf.trouble,
   cmd = 'Trouble'
 }
+reg { 'stevearc/dressing.nvim' }

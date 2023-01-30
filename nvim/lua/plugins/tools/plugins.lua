@@ -29,3 +29,12 @@ reg {
   event = 'BufRead',
 }
 reg { 'f-person/git-blame.nvim' }
+reg {
+  'akinsho/toggleterm.nvim',
+  config = conf.term,
+  cmd = 'ToggleTerm',
+}
+reg {
+  'wakatime/vim-wakatime',
+  event = 'VeryLazy'
+}

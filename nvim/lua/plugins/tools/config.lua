@@ -140,4 +140,8 @@ function config.gitsigns()
   }
 end
 
+function config.term()
+  require('toggleterm').setup({})
+end
+
 return config

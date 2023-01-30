@@ -77,7 +77,7 @@ wk.register({
   g = {
     name = '+git',
     b = { "<cmd>lua require'gitsigns'.blame_line{full=true}<cr>", 'git blame' },
-    c = { utils.Commit.commit, 'git commit' },
+    c = { utils.commit, 'git commit' },
     d = {
       name = '+git diff',
       f = { '<cmd>lua ToggleDiffView(false)<CR>', 'diff file' },
@@ -216,5 +216,9 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+
+nmap <A-i> <cmd>ToggleTerm direction=float<cr>
+imap <A-i> <cmd>ToggleTerm direction=float<cr>
+tmap <A-i> <cmd>ToggleTerm direction=float<cr>
 
 ]]
