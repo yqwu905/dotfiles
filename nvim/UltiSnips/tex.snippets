@@ -66,8 +66,13 @@ snippet eq "Equation Environment" w
 \end{equation}
 endsnippet
 
+context "math()"
 snippet bf "Bold" wA
 {\bf $1}$0
+endsnippet
+
+snippet bf "Bold" wA
+\textbf{$1}$0
 endsnippet
 
 context "math()"
@@ -85,9 +90,9 @@ else:
 endsnippet
 
 snippet dm "Math" wA
-$$
+\[
 $1
-$$ $0
+\] $0
 endsnippet
 
 context "math()"
@@ -254,6 +259,11 @@ endsnippet
 context "math()"
 snippet e "epsilon" w
 \epsilon
+endsnippet
+
+context "math()"
+snippet ve "varepsilon" w
+\varepsilon
 endsnippet
 
 context "math()"

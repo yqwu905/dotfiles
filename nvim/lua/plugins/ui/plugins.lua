@@ -13,7 +13,7 @@ reg {
 reg {
   'nvim-tree/nvim-tree.lua',
   config = conf.nvimtree,
-  cmd = 'NvimTreeToggle',
+  cmd = {'NvimTreeToggle', 'NvimTreeClose', 'NvimTreeToggle'},
 }
 reg {
   'nvim-lualine/lualine.nvim',

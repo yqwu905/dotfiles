@@ -9,6 +9,18 @@ opt.hidden = true
 opt.magic = true
 opt.virtualedit = 'block'
 opt.clipboard = 'unnamedplus'
+vim.g.clipboard = {
+    name = "win32yank-wsl",
+    copy = {
+         ["+"] = "win32yank.exe -i --crlf",
+         ["*"] = "win32yank.exe -i --crlf"
+    },
+    paste = {
+        ["+"] = "win32yank.exe -o --lf",
+        ["*"] = "win32yank.exe -o --lf"
+    },
+    cache_enabled = false
+}
 opt.wildignorecase = true
 opt.swapfile = false
 opt.history = 2000
@@ -21,8 +33,7 @@ opt.redrawtime = 1500
 opt.ignorecase = true
 opt.smartcase = true
 opt.infercase = true
-
--- use rg in vim grep
+-- use rg in vim grep/
 if vim.fn.executable('rg') == 1 then
   opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
@@ -65,8 +76,6 @@ opt.number = true
 opt.signcolumn = 'yes'
 opt.spelloptions = 'camel'
 
-opt.textwidth = 100
-opt.colorcolumn = '80'
 opt.conceallevel = 2
 -- opt.concealcursor = 'niv'
 opt.relativenumber = true

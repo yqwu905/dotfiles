@@ -6,8 +6,8 @@ utils.split = function(inputString, sep)
 
   local pattern = string.format('([^%s]+)', sep)
   local _ = string.gsub(inputString, pattern, function(c)
-    fields[#fields + 1] = c
-  end)
+        fields[#fields + 1] = c
+      end)
 
   return fields
 end
@@ -28,5 +28,6 @@ utils.path_join = function(...)
   end
   return table.concat(all_parts, path_sep)
 end
+
 
 return utils

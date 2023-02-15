@@ -7,7 +7,8 @@ local opts = {
   mode = 'n',
   prefix = '<leader>',
   buffer = nil,
-  silent = true, noremap = false,
+  silent = true,
+  noremap = false,
   nowait = false,
 }
 
@@ -21,48 +22,39 @@ local vopts = {
 }
 
 wk.register({
-  ['/'] = { "<cmd>lua require('Comment.api').toggle.linewise()<cr>",
-    'toggle comment' },
-  ['1'] = { "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>",
-    'buffer 1' },
-  ['2'] = { "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>",
-    'buffer 2' },
-  ['3'] = { "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>",
-    'buffer 3' },
-  ['4'] = { "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>",
-    'buffer 4' },
-  ['5'] = { "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>",
-    'buffer 5' },
-  ['6'] = { "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>",
-    'buffer 6' },
-  ['7'] = { "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>",
-    'buffer 7' },
-  ['8'] = { "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>",
-    'buffer 8' },
-  ['9'] = { "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>",
-    'buffer 9' },
+  ['/'] = { "<cmd>lua require('Comment.api').toggle.linewise()<cr>", 'toggle comment' },
+  ['1'] = { "<cmd>lua require('bufferline').go_to_buffer(1, true)<cr>", 'buffer 1' },
+  ['2'] = { "<cmd>lua require('bufferline').go_to_buffer(2, true)<cr>", 'buffer 2' },
+  ['3'] = { "<cmd>lua require('bufferline').go_to_buffer(3, true)<cr>", 'buffer 3' },
+  ['4'] = { "<cmd>lua require('bufferline').go_to_buffer(4, true)<cr>", 'buffer 4' },
+  ['5'] = { "<cmd>lua require('bufferline').go_to_buffer(5, true)<cr>", 'buffer 5' },
+  ['6'] = { "<cmd>lua require('bufferline').go_to_buffer(6, true)<cr>", 'buffer 6' },
+  ['7'] = { "<cmd>lua require('bufferline').go_to_buffer(7, true)<cr>", 'buffer 7' },
+  ['8'] = { "<cmd>lua require('bufferline').go_to_buffer(8, true)<cr>", 'buffer 8' },
+  ['9'] = { "<cmd>lua require('bufferline').go_to_buffer(9, true)<cr>", 'buffer 9' },
   d = {
     name = '+debug',
     b = { "<cmd>lua require('dap').toggle_breakpoint()<cr>;", 'breakpoint' },
-    B = { "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > ');<cr>",
-      'breakpoint' },
+    B = { "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > ');<cr>", 'breakpoint' },
     e = { "<cmd>lua require'dapui'.eval()<cr>", 'eval' },
     r = { utils.cpp_debug, 'run' },
   },
   e = {
     name = '+enter',
     c = { '<cmd>e $MYVIMRC | :cd %:p:h <CR>', 'nvim config' },
-    o = { '<cmd>e /home/yqwu/repos/notes/inbox.norg | :cd %:p:h <CR>', 'neorg' }
+    o = { '<cmd>e /home/yqwu/repos/notes/inbox.norg | :cd %:p:h <CR>', 'neorg' },
   },
   f = {
     name = '+find',
-    a = { '<cmd>Telescope find_files follow=true no_ignore=true hidden=true <cr>',
-      'find all files' },
+    a = { '<cmd>Telescope find_files follow=true no_ignore=true hidden=true <cr>', 'find all files' },
     f = { '<cmd>Telescope find_files<cr>', 'find files' },
     h = { '<cmd>Telescope help_tags<cr>', 'help tags' },
     r = { '<cmd>Telescope oldfiles<cr>', 'recent files' },
-    o = { '<cmd>lua require("telescope.builtin").find_files({search_dirs={"~/repos/notes"}})<cr>',
-      'org files' },
+    o = {
+      '<cmd>lua require("telescope.builtin").find_files({search_dirs={"~/repos/notes"}})<cr>',
+      'org files',
+    },
+    p = { require('telescope').extensions.project.project, 'project' },
     n = {
       name = 'neorg',
       l = { '<cmd>Telescope neorg find_linkable<cr>', 'linkable' },
@@ -72,7 +64,7 @@ wk.register({
     w = { '<cmd>Telescope live_grep<cr>', 'live grep' },
     s = { '<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', 'workspace symbols' },
     t = { '<cmd>Telescope<CR>', 'telescope' },
-    ['/'] = { '<cmd>Telescope current_buffer_fuzzy_find<CR>', 'current file' }
+    ['/'] = { '<cmd>Telescope current_buffer_fuzzy_find<CR>', 'current file' },
   },
   g = {
     name = '+git',
@@ -108,11 +100,12 @@ wk.register({
   s = {
     name = '+repl',
     l = { "<cmd>lua require('iron.core').send_line()<cr>", 'send line' },
-    f = { "<cmd>lua require('iron.core').send(nil, vim.api.nvim_buf_get_lines(0, 0, -1, false))<cr>",
-      'send file' },
+    f = {
+      "<cmd>lua require('iron.core').send(nil, vim.api.nvim_buf_get_lines(0, 0, -1, false))<cr>",
+      'send file',
+    },
     s = { '<cmd>IronFocus<cr>', 'focus repl' },
-    ['<cr>'] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>",
-      'send cr' },
+    ['<cr>'] = { "<cmd>lua require('iron.core').send(nil, string.char(13))<cr>", 'send cr' },
   },
   o = {
     name = '+org',
@@ -123,6 +116,12 @@ wk.register({
       c = { '<cmd>Neorg gtd capture<cr>', 'capture' },
     },
     i = { '<cmd>Neorg workspace note<cr>', 'index' },
+    j = {
+      name = '+journal',
+      j = { '<cmd>Neorg journal today<cr>', 'today' },
+      t = { '<cmd>Neorg journal tomorrow<cr>', 'tomorrow' },
+      y = { '<cmd>Neorg journal yesterday<cr>', 'yesterday' },
+    },
     m = {
       name = '+metadata',
       i = { '<cmd>Neorg inject-metadata<cr>', 'inject' },
@@ -143,7 +142,7 @@ wk.register({
     name = '+quit',
     q = { '<cmd>wqa<cr>', 'quit' },
     f = { '<cmd>qa!<cr>', 'force quit' },
-    x = { utils.close_buffer, 'close buffer' }
+    x = { utils.close_buffer, 'close buffer' },
   },
   u = {
     name = '+utils',
@@ -164,13 +163,14 @@ wk.register({
 }, opts)
 
 wk.register({
-  ['/'] = { "<esc><cmd> :lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-    'toggle comment' },
-  s = { ":<C-u>lua require('iron.core').send(nil, get_visual_selection())<cr>",
-    'send visual' }
+  ['/'] = {
+    "<esc><cmd> :lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+    'toggle comment',
+  },
+  s = { ":<C-u>lua require('iron.core').send(nil, get_visual_selection())<cr>", 'send visual' },
 }, vopts)
 
-vim.cmd [[
+vim.cmd([[
 noremap <Tab> <cmd>BufferLineCycleNext<CR>
 noremap <S-Tab> <cmd>BufferLineCyclePrev<CR>
 
@@ -221,4 +221,4 @@ nmap <A-i> <cmd>ToggleTerm direction=float<cr>
 imap <A-i> <cmd>ToggleTerm direction=float<cr>
 tmap <A-i> <cmd>ToggleTerm direction=float<cr>
 
-]]
+]])

@@ -25,3 +25,8 @@ reg {
   cmd = { 'Neorg' },
   ft = { 'norg' },
 }
+
+reg {
+  'simrat39/rust-tools.nvim',
+  config = conf.rust_tools,
+}

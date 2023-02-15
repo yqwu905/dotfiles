@@ -26,12 +26,9 @@ return function()
 
   local dap = require('dap')
   dap.adapters.lldb = {
-    type = 'server',
-    port = '${port}',
-    executable = {
-      command = 'codelldb',
-      args = { '--port', '${port}' }
-    }
+    type = 'executable',
+    command = '/usr/sbin/lldb-vscode',
+    name = 'lldb',
   }
   dap.configurations.cpp = {
     {
@@ -42,7 +39,7 @@ return function()
         return vim.fn.getcwd() .. '/a.out'
       end,
       cwd = '${workspaceFolder}',
-      stopOnEntry = false,
+      stopOnEntry = true,
       args = {},
     },
   }
