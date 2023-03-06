@@ -4,7 +4,7 @@ lazy.__index = lazy
 
 -- Use in other file to add plugin to plugins list.
 function lazy.reg(repo)
-  if not (lazy.repos) then
+  if not lazy.repos then
     lazy.repos = {}
   end
   table.insert(lazy.repos, repo)
@@ -14,8 +14,12 @@ end
 function lazy:load_plugins()
   local plugins_dir = utils.path_join(vim.fn.stdpath('config'), 'lua', 'plugins')
   self.repos = {}
-  local list = vim.fs.find('plugins.lua',
-    { path = plugins_dir, type = 'file', limit = 20 })
+  function lua_match(path)
+    return path:sub(#path - 3, #path) == '.lua'
+  end
+
+  local list = vim.fs.find(lua_match,
+      {path = plugins_dir, type = 'file', limit = 200})
   if #list == 0 then
     return
   end
@@ -23,7 +27,7 @@ function lazy:load_plugins()
   for _, f in pairs(list) do
     local _, pos = f:find(plugins_dir)
     f = f:sub(pos - 6, #f - 4)
-    require(f)
+    lazy.reg(require(f))
   end
 end
 
@@ -42,10 +46,8 @@ function lazy:start()
     })
   end
   vim.opt.rtp:prepend(lazypath)
-  require('lazy').setup(
-    self.repos,
-    { lockfile = utils.path_join(vim.fn.stdpath('data'), 'lazy-lock.json') }
-  )
+  require('lazy').setup(self.repos,
+    {lockfile = utils.path_join(vim.fn.stdpath('data'), 'lazy-lock.json')})
 end
 
 return lazy

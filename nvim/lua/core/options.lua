@@ -2,6 +2,7 @@
 -- date: 2022-07-02
 -- License: MIT
 local opt = vim.opt
+local g = vim.g
 
 opt.termguicolors = true
 opt.shell = 'zsh'
@@ -10,16 +11,16 @@ opt.magic = true
 opt.virtualedit = 'block'
 opt.clipboard = 'unnamedplus'
 vim.g.clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-         ["+"] = "win32yank.exe -i --crlf",
-         ["*"] = "win32yank.exe -i --crlf"
-    },
-    paste = {
-        ["+"] = "win32yank.exe -o --lf",
-        ["*"] = "win32yank.exe -o --lf"
-    },
-    cache_enabled = false
+  name = 'win32yank-wsl',
+  copy = {
+    ['+'] = 'win32yank.exe -i --crlf',
+    ['*'] = 'win32yank.exe -i --crlf',
+  },
+  paste = {
+    ['+'] = 'win32yank.exe -o --lf',
+    ['*'] = 'win32yank.exe -o --lf',
+  },
+  cache_enabled = false,
 }
 opt.wildignorecase = true
 opt.swapfile = false
@@ -79,4 +80,4 @@ opt.spelloptions = 'camel'
 opt.conceallevel = 2
 -- opt.concealcursor = 'niv'
 opt.relativenumber = true
-vim.g.python3_host_prog = '/usr/bin/python'
+g.python3_host_prog = '/usr/bin/python'

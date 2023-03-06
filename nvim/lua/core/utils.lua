@@ -1,20 +1,20 @@
 -- This file provide some basic and common-use utilities.
 local utils = {}
 
-utils.split = function(inputString, sep)
+utils.split = function (inputString, sep)
   local fields = {}
 
   local pattern = string.format('([^%s]+)', sep)
-  local _ = string.gsub(inputString, pattern, function(c)
-        fields[#fields + 1] = c
-      end)
+  local _ = string.gsub(inputString, pattern, function (c)
+      fields[#fields + 1] = c
+    end)
 
   return fields
 end
 
-utils.path_join = function(...)
+utils.path_join = function (...)
   local path_sep = vim.loop.os_uname().sysname == 'Windows' and '\\' or '/'
-  local args = { ... }
+  local args = {...}
   if #args == 0 then
     return ''
   end
@@ -28,6 +28,5 @@ utils.path_join = function(...)
   end
   return table.concat(all_parts, path_sep)
 end
-
 
 return utils

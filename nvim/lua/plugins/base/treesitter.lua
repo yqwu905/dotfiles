@@ -1,10 +1,14 @@
-local config = {}
-
-function config.nvim_treesitter()
-  require('nvim-treesitter.configs').setup({
+return {
+  'nvim-treesitter/nvim-treesitter',
+  event = 'VeryLazy',
+  run = ':TSUpdate',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
+  opts = {
     ensure_installed = 'all',
     sync_install = true,
-    ignore_install = { 'latex', 'phpdoc' },
+    ignore_install = {'latex', 'phpdoc'},
     highlight = {
       enable = true,
     },
@@ -15,11 +19,9 @@ function config.nvim_treesitter()
           ['af'] = '@function.outer',
           ['if'] = '@function.inner',
           ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner'
+          ['ic'] = '@class.inner',
         },
       },
     },
-  })
-end
-
-return config
+  },
+}

@@ -1,0 +1,25 @@
+return {
+  'WhoIsSethDaniel/mason-tool-installer.nvim',
+  opts = {
+    ensure_installed = {
+      'lua-language-server',
+      'rust-analyzer',
+      'clangd',
+      'cmake-language-server',
+      'html-lsp',
+      'json-lsp',
+      'julia-lsp',
+      'texlab',
+      'marksman',
+      'jedi-language-server',
+      'taplo',
+      'yaml-language-server',
+      'yapf',
+      'flake8',
+      'actionlint',
+      'cpplint',
+      'cpptools',
+      'codelldb',
+    },
+  },
+}
